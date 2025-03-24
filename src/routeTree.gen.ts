@@ -12,12 +12,26 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
+import { Route as ExploreIndexImport } from './routes/explore/index'
+import { Route as MovieInfoMovieIdIndexImport } from './routes/movieInfo/$movieId/index'
 
 // Create/Update Routes
 
 const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ExploreIndexRoute = ExploreIndexImport.update({
+  id: '/explore/',
+  path: '/explore/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MovieInfoMovieIdIndexRoute = MovieInfoMovieIdIndexImport.update({
+  id: '/movieInfo/$movieId/',
+  path: '/movieInfo/$movieId/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -32,6 +46,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/explore/': {
+      id: '/explore/'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof ExploreIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/movieInfo/$movieId/': {
+      id: '/movieInfo/$movieId/'
+      path: '/movieInfo/$movieId'
+      fullPath: '/movieInfo/$movieId'
+      preLoaderRoute: typeof MovieInfoMovieIdIndexImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -39,32 +67,42 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/explore': typeof ExploreIndexRoute
+  '/movieInfo/$movieId': typeof MovieInfoMovieIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/explore': typeof ExploreIndexRoute
+  '/movieInfo/$movieId': typeof MovieInfoMovieIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/explore/': typeof ExploreIndexRoute
+  '/movieInfo/$movieId/': typeof MovieInfoMovieIdIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/explore' | '/movieInfo/$movieId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/explore' | '/movieInfo/$movieId'
+  id: '__root__' | '/' | '/explore/' | '/movieInfo/$movieId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ExploreIndexRoute: typeof ExploreIndexRoute
+  MovieInfoMovieIdIndexRoute: typeof MovieInfoMovieIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ExploreIndexRoute: ExploreIndexRoute,
+  MovieInfoMovieIdIndexRoute: MovieInfoMovieIdIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -77,11 +115,19 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/explore/",
+        "/movieInfo/$movieId/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/explore/": {
+      "filePath": "explore/index.tsx"
+    },
+    "/movieInfo/$movieId/": {
+      "filePath": "movieInfo/$movieId/index.tsx"
     }
   }
 }

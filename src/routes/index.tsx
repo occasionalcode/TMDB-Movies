@@ -1,4 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import Dashboard from "../component/-Dashboard";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -6,8 +7,11 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="p-2">
-      <h3>Welcome Home!</h3>
+    <div className="p-2 bg-[#020713] flex items-center justify-center ">
+      <div className="">
+        <Dashboard />
+        <Outlet />
+      </div>
     </div>
   );
 }
