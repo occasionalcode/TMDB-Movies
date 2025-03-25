@@ -1,7 +1,6 @@
 import NavBar from "@/layouts/-Navbar";
-import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
+import { createRootRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { Menu } from "lucide-react";
 
 export const Route = createRootRoute({
   component: () => (

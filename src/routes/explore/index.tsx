@@ -13,7 +13,7 @@ export const Route = createFileRoute("/explore/")({
 function RouteComponent() {
   const { genreValues } = useGenreStore();
   const { data, isLoading, error } = getDiscoverMovies(genreValues);
-  const { discoverVisibility, setDiscoverVisibility } = useDiscoverVisibility();
+  const { discoverVisibility } = useDiscoverVisibility();
   console.log(discoverVisibility);
   if (isLoading) {
     return <div>loading</div>;

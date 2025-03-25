@@ -1,4 +1,4 @@
-import { MovieDetails, Result } from "@/types/tmdb-types";
+import { Result } from "@/types/tmdb-types";
 import { Link } from "@tanstack/react-router";
 import { EyeOff, HeartCrack } from "lucide-react";
 import MovieImage from "./-MovieImage";

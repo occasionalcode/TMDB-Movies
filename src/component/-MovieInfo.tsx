@@ -2,7 +2,6 @@ import { getMovieDetails } from "@/api/tmdb-fetch";
 import MovieImage from "@/component/-MovieImage";
 import { Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
-import { useEffect, useState } from "react";
 
 type MovieInfotype = {
   id: string;
