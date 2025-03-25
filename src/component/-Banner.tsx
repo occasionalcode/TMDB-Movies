@@ -33,7 +33,7 @@ export default function Banner() {
           <div className="absolute bg-gradient-to-r from-[#030712] to-transparent bottom-0 h-full w-3/4 z-0"></div>
           <div className="absolute text-white bottom-1/2 translate-y-1/2 pl-10 w-2/3">
             <p className="font-bold text-6xl">{`${randomMovie.title}`}</p>
-            <p>{`${randomMovie.overview}`}</p>
+            <p className="line-clamp-2">{`${randomMovie.overview}`}</p>
           </div>
           {/* <Link
             to="/movieInfo/$movieId"

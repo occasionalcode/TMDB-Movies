@@ -30,6 +30,10 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
 
   const streams: Provider[] = [
     {
+      name: "Vidjoy (no ads)",
+      source: `https://vidjoy.pro/embed/movie/${movieId}`,
+    },
+    {
       name: "VidsrcCC",
       source: `https://vidsrc.cc/v2/embed/movie/${movieId}?autoPlay=false`,
     },
@@ -42,13 +46,9 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
       name: "Embed",
       source: `https://embed.su/embed/movie/${movieId}`,
     },
-    {
-      name: "Vidjoy (no ads)",
-      source: `https://vidjoy.pro/embed/movie/${movieId}`,
-    },
   ];
 
-  const [media, setMedia] = useState<Provider>(streams[1]);
+  const [media, setMedia] = useState<Provider>(streams[0]);
 
   return (
     <div className="flex pt-10 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10 lg:gap-0 ">

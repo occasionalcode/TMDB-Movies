@@ -65,7 +65,7 @@ export function GenreDialog() {
                   className={`outline-1 rounded-2xl py-1 px-4   ${selectedGenres.includes(genre.id) ? `bg-red-800 hover:bg-red-900` : `bg-transparent hover:bg-[#222327]`}`}
                   key={genre.id}
                 >
-                  <p className={`text-centers`}>{`${genre.name}`}</p>
+                  <p className={`text-center`}>{`${genre.name}`}</p>
                 </button>
               ))}
             </div>
@@ -84,7 +84,7 @@ export function GenreDialog() {
               onClick={() => {
                 setGenreStore(selectedGenres);
               }}
-              className="px-4 py-1 rounded-sm bg-red-800 hover:bg-red-900"
+              className="text-center px-4 py-1 rounded-sm bg-red-800 hover:bg-red-900"
             >
               Apply
             </Link>
