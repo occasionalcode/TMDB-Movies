@@ -14,7 +14,8 @@ import {
 import { getMovieGenres } from "@/api/tmdb-fetch";
 import { useEffect, useState } from "react";
 import { useGenreStore } from "@/stores/genreStore";
-import Dashboard from "./-Dashboard";
+
+import { Link } from "@tanstack/react-router";
 
 export function GenreDialog() {
   const { data: genres, isLoading, error } = getMovieGenres();
@@ -81,14 +82,15 @@ export function GenreDialog() {
                 Close
               </button>
             </DialogClose>
-            <button
+            <Link
+              to="/explore"
               onClick={() => {
                 setGenreStore(selectedGenres);
               }}
               className="px-4 py-1 rounded-sm bg-red-800 hover:bg-red-900"
             >
               Apply
-            </button>
+            </Link>
           </DialogFooter>
         </DialogContent>
       </Dialog>

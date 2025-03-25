@@ -1,5 +1,4 @@
 import { getDiscoverMovies } from "@/api/tmdb-fetch";
-import Dashboard from "@/component/-Dashboard";
 import DiscoverMovies from "@/component/-DiscoverMovies";
 import SearchMovies from "@/component/-SearchMovies";
 import { useDiscoverVisibility } from "@/stores/discoverVisibilityStore";
