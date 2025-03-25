@@ -48,13 +48,20 @@ export default function MovieInfo(id: MovieInfotype) {
                 alt={"Poster"}
                 className={"aspect-[2/3] h-64 lg:h-96 object-cover rounded-lg"}
               />
-              <div className="lg:pl-5 text-white text-wrap ">
+              <div className="lg:pl-5 text-white text-wrap flex flex-col justify-center lg:justify-start lg:items-start items-center">
                 <h2 className="text-4xl font-bold text-center lg:text-start">
                   {movie.title}
                 </h2>
                 <p className="text-center lg:text-start">
                   {`${date.getFullYear()}`} - {`${movie.status}`}
                 </p>
+                <Link
+                  to="/watch/$movieId"
+                  params={{ movieId: movie.id.toString() }}
+                  className="bg-red-800 px-5 py-1 mt-5 lg:mt-3 rounded-sm flex gap-2 items-center justify-center"
+                >
+                  <Play className="size-5" /> Watch
+                </Link>
               </div>
             </div>
             <div className="relative flex flex-col text-white gap-4">

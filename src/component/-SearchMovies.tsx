@@ -37,7 +37,7 @@ export default function SearchMovies() {
       />
 
       {isLoading && (
-        <div className="grid grid-cols-5 gap-5">
+        <div className="grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
           {skeletonArray.map((_, index) => (
             <Skeleton
               key={index}
@@ -50,14 +50,14 @@ export default function SearchMovies() {
       {isError && <div className="">Error fetching movies!</div>}
 
       {data && data.results.length > 0 && (
-        <div className="">
+        <div className="px-10 mobileS:px-3">
           <div className="flex  gap-2">
             <div className="bg-white rounded-full w-2 h-10"></div>
-            <h2 className="text-white font-bold text-3xl pb-5">
+            <h2 className="text-white font-bold text-2xl lg:text-3xl pb-5">
               <span>{`${data.total_results}`}</span> Search Results
             </h2>
           </div>
-          <div className="grid grid-cols-5 gap-5">
+          <div className="grid  gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             {data.results.map((movie) => (
               <MovieCards key={movie.id} movie={movie} />
             ))}

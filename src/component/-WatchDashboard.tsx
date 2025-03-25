@@ -79,7 +79,7 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
             {error && <p>Error fetching data</p>}{" "}
             {moviedetail && (
               <div className="pt-5">
-                <div className="flex gap-2 pb-5">
+                <div className="flex flex-wrap gap-2 pb-5">
                   {streams.map((stream) => (
                     <button
                       onClick={() => setMedia(stream)}

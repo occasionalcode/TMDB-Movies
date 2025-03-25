@@ -39,7 +39,7 @@ export function GenreDialog() {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <button className="bg-transparent text-white text-lg outline-[3px] px-8 py-1 h-fit rounded-lg  outline-white hover:bg-[#1c1d20]">
+          <button className="bg-transparent text-white text-base lg:text-lg outline-2 lg:outline-[3px] px-4  lg:px-8 py-1 h-fit rounded-lg  outline-white hover:bg-[#1c1d20]">
             Filter
           </button>
         </DialogTrigger>

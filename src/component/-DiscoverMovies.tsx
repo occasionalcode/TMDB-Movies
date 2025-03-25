@@ -14,11 +14,13 @@ export default function DiscoverMovies(movies: DiscoverMovieTypes) {
       <div className="h-full w-full flex justify-between">
         <div className="flex  gap-2">
           <div className="bg-white rounded-full w-2 h-10"></div>
-          <h2 className="text-white font-bold text-3xl pb-5">Discover</h2>
+          <h2 className="text-white font-bold  text-2xl lg:text-3xl pb-5">
+            Discover
+          </h2>
         </div>
         <GenreDialog />
       </div>
-      <div className="grid grid-cols-2 gap-5 justify-center items-center sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid  gap-5 justify-center items-center grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
         {movies?.movies.results.map((movie) => (
           <MovieCards key={movie.id} movie={movie} />
         ))}
