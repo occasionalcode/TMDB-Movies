@@ -117,7 +117,7 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
         {suggestedMovies && (
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl font-bold text-white">Recommendations</h3>
-            <div className="grid grid-cols-1 gap-3 h-[40rem] overflow-y-scroll">
+            <div className="grid grid-cols-1 gap-3 h-[40rem] overflow-y-scroll no-scrollbar">
               {suggestedMovies.results.map((movies) => (
                 <div key={movies.id}>
                   {Number(movieId) !== movies.id && (

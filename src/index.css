@@ -127,4 +127,59 @@
     @apply bg-background text-foreground;
     overflow-x: hidden;
   }
+  /* Webkit browsers (Chrome, Safari, newer versions of Opera) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #4b5563 #030712;
+  }
+
+  /* For Internet Explorer and Edge */
+  * {
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+  }
+
+  /* Your existing no-scrollbar class for elements that should hide scrollbar completely */
+  .no-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-thumb {
+    background: oklch(0.556 0 0 / 0.3);
+    border-radius: 4px;
+  }
+
+  .no-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: oklch(0.556 0 0 / 0.5);
+  }
+
+  .no-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: oklch(0.556 0 0 / 0.3) transparent;
+    -ms-overflow-style: auto;
+  }
+  
 }

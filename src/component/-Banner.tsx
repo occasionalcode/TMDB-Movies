@@ -1,5 +1,6 @@
 import { TrendingMovies } from "@/api/tmdb-fetch";
 import MovieImage from "@/component/-MovieImage";
+import { Link } from "@tanstack/react-router";
 
 export default function Banner() {
   const { data: movies, isLoading, error } = TrendingMovies();
@@ -34,6 +35,22 @@ export default function Banner() {
           <div className="absolute text-white bottom-1/2 translate-y-1/2 pl-10 w-2/3">
             <p className="font-bold text-6xl">{`${randomMovie.title}`}</p>
             <p className="line-clamp-2">{`${randomMovie.overview}`}</p>
+            <div className="flex lg:gap-3 flex-col pt-3 gap-4 md:flex-row w-32 md:w-auto ">
+              <Link
+                to="/movieInfo/$movieId"
+                params={{ movieId: randomMovie.id.toString() }}
+                className="outline-2  outline-white hover:bg-white hover:text-black px-5 py-0.5  lg:w-fit  flex gap-2 items-center justify-center"
+              >
+                Info
+              </Link>
+              <Link
+                to="/watch/$movieId"
+                params={{ movieId: randomMovie.id.toString() }}
+                className="bg-red-800 outline-red-800 outline-2 hover:bg-red-900 px-5 py-1 lg:w-fit  flex gap-2 items-center justify-center"
+              >
+                Watch Now
+              </Link>
+            </div>
           </div>
           {/* <Link
             to="/movieInfo/$movieId"
