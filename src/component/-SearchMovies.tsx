@@ -1,4 +1,4 @@
-import { getMovieDetails, getSearchMovies } from "@/api/tmdb-fetch";
+import { getSearchMovies } from "@/api/tmdb-fetch";
 import { useEffect, useState } from "react";
 import MovieCards from "./-MovieCards";
 import { useDiscoverVisibility } from "@/stores/discoverVisibilityStore";

@@ -2,7 +2,7 @@ import { getDiscoverMovies } from "../api/tmdb-fetch";
 import DiscoverMoviesSection from "./-DiscoverMovies";
 import Banner from "./-Banner";
 import { useDiscoverVisibility } from "@/stores/discoverVisibilityStore";
-import { useEffect, useState } from "react";
+
 import { useGenreStore } from "@/stores/genreStore";
 
 export default function Dashboard() {

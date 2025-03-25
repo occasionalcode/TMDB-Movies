@@ -1,6 +1,3 @@
-import { Copy } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -12,10 +9,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/Customdialog";
 import { getMovieGenres } from "@/api/tmdb-fetch";
-import { useEffect, useState } from "react";
 import { useGenreStore } from "@/stores/genreStore";
 
 import { Link } from "@tanstack/react-router";
+import { useState } from "react";
 
 export function GenreDialog() {
   const { data: genres, isLoading, error } = getMovieGenres();

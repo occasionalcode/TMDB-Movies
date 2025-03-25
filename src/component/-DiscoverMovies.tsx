@@ -1,8 +1,6 @@
 import { TMDBMovies } from "@/types/tmdb-types";
 import { GenreDialog } from "./-GenreDialog";
 import MovieCards from "./-MovieCards";
-import { useDiscoverVisibility } from "@/stores/discoverVisibilityStore";
-import { useEffect } from "react";
 
 type DiscoverMovieTypes = {
   movies: TMDBMovies;

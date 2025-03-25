@@ -1,8 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
-import DiscoverMovies from "./-DiscoverMovies";
 import { getDiscoverMovies, getMovieDetails } from "@/api/tmdb-fetch";
-import MovieCards from "./-MovieCards";
 import WatchDashboardCards from "./-WatchDashboardCards";
 
 type WatchDashboardType = {
@@ -12,7 +10,6 @@ type WatchDashboardType = {
 export default function WatchDashboard({ movieId }: WatchDashboardType) {
   const [iframeLoading, setIframeLoading] = useState(true);
   const [isError, setIsError] = useState(false);
-  const [source, setSource] = useState(1);
 
   const {
     data: moviedetail,

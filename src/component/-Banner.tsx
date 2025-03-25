@@ -1,7 +1,5 @@
 import { TrendingMovies } from "@/api/tmdb-fetch";
 import MovieImage from "@/component/-MovieImage";
-import { Button } from "@/components/ui/button";
-import { Link } from "lucide-react";
 
 export default function Banner() {
   const { data: movies, isLoading, error } = TrendingMovies();
