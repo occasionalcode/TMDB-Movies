@@ -1,6 +1,5 @@
 {
-  "name": "ibanezmovies",
-  "homepage": "https://ibanezmovies.vercel.app/",
+  "name": "tmdb-movies",
   "private": true,
   "version": "0.0.0",
   "type": "module",
