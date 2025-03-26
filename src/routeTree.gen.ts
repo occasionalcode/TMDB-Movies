@@ -11,12 +11,19 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SplatImport } from './routes/$'
 import { Route as IndexImport } from './routes/index'
 import { Route as ExploreIndexImport } from './routes/explore/index'
 import { Route as WatchMovieIdIndexImport } from './routes/watch/$movieId/index'
 import { Route as MovieInfoMovieIdIndexImport } from './routes/movieInfo/$movieId/index'
 
 // Create/Update Routes
+
+const SplatRoute = SplatImport.update({
+  id: '/$',
+  path: '/$',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   id: '/',
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatImport
+      parentRoute: typeof rootRoute
+    }
     '/explore/': {
       id: '/explore/'
       path: '/explore'
@@ -81,6 +95,7 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/explore': typeof ExploreIndexRoute
   '/movieInfo/$movieId': typeof MovieInfoMovieIdIndexRoute
   '/watch/$movieId': typeof WatchMovieIdIndexRoute
@@ -88,6 +103,7 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/explore': typeof ExploreIndexRoute
   '/movieInfo/$movieId': typeof MovieInfoMovieIdIndexRoute
   '/watch/$movieId': typeof WatchMovieIdIndexRoute
@@ -96,6 +112,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/explore/': typeof ExploreIndexRoute
   '/movieInfo/$movieId/': typeof MovieInfoMovieIdIndexRoute
   '/watch/$movieId/': typeof WatchMovieIdIndexRoute
@@ -103,12 +120,13 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/explore' | '/movieInfo/$movieId' | '/watch/$movieId'
+  fullPaths: '/' | '/$' | '/explore' | '/movieInfo/$movieId' | '/watch/$movieId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/explore' | '/movieInfo/$movieId' | '/watch/$movieId'
+  to: '/' | '/$' | '/explore' | '/movieInfo/$movieId' | '/watch/$movieId'
   id:
     | '__root__'
     | '/'
+    | '/$'
     | '/explore/'
     | '/movieInfo/$movieId/'
     | '/watch/$movieId/'
@@ -117,6 +135,7 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SplatRoute: typeof SplatRoute
   ExploreIndexRoute: typeof ExploreIndexRoute
   MovieInfoMovieIdIndexRoute: typeof MovieInfoMovieIdIndexRoute
   WatchMovieIdIndexRoute: typeof WatchMovieIdIndexRoute
@@ -124,6 +143,7 @@ export interface RootRouteChildren {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SplatRoute: SplatRoute,
   ExploreIndexRoute: ExploreIndexRoute,
   MovieInfoMovieIdIndexRoute: MovieInfoMovieIdIndexRoute,
   WatchMovieIdIndexRoute: WatchMovieIdIndexRoute,
@@ -140,6 +160,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/$",
         "/explore/",
         "/movieInfo/$movieId/",
         "/watch/$movieId/"
@@ -147,6 +168,9 @@ export const routeTree = rootRoute
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/$": {
+      "filePath": "$.tsx"
     },
     "/explore/": {
       "filePath": "explore/index.tsx"
