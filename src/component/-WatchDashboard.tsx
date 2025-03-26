@@ -30,12 +30,12 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
 
   const streams: Provider[] = [
     {
-      name: "Vidjoy (no ads)",
-      source: `https://vidjoy.pro/embed/movie/${movieId}`,
-    },
-    {
       name: "VidsrcCC",
       source: `https://vidsrc.cc/v2/embed/movie/${movieId}?autoPlay=false`,
+    },
+    {
+      name: "Vidjoy (no ads)",
+      source: `https://vidjoy.pro/embed/movie/${movieId}`,
     },
 
     {
