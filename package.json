@@ -1,6 +1,6 @@
 {
-  "name": "tmdb-movies",
-  "homepage": "",
+  "name": "ibanezmovies",
+  "homepage": "https://ibanezmovies.vercel.app/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -29,6 +29,7 @@
     "tw-animate-css": "^1.2.4",
     "zustand": "^5.0.3"
   },
+  
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.68.0",
     "@tanstack/react-router-devtools": "^1.114.24",
@@ -45,4 +46,5 @@
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }
+  
 }
