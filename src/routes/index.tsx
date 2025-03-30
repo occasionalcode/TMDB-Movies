@@ -1,4 +1,4 @@
-import Dashboard from "@/component/-Dashboard";
+import Dashboard from "@/component/dashboard/-Dashboard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
@@ -7,8 +7,8 @@ export const Route = createFileRoute("/")({
 
 function Index() {
   return (
-    <div className="p-2 bg-[#020713] flex items-center justify-center ">
-      <div className="">
+    <div className="p-2 bg-[#020713] flex items-start justify-center min-h-dvh w-auto">
+      <div className="w-full">
         <Dashboard />
         <Outlet />
       </div>

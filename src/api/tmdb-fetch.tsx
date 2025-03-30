@@ -2,34 +2,26 @@ import { useQuery } from "@tanstack/react-query";
 import { MovieDetails, MovieGenres, TMDBMovies } from "../types/tmdb-types";
 import axios from "axios";
 
-export function getDiscoverMovies(genres: number[] | null) {
+export function getDiscoverMovies(
+  genres?: number[] | undefined,
+  page?: number | undefined
+) {
   console.log(genres, "tanstackqueery");
   return useQuery<TMDBMovies>({
-    queryKey: ["discoverMovies", genres],
+    queryKey: ["discoverMovies", genres, page],
     queryFn: async () => {
-      console.log("fetching movies");
+      console.log(genres, "nigga");
       const { data: discoverMovies } = await axios.get(
-        `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&with_genres=${genres}&language=en-US&page=1&sort_by=popularity.desc&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+        `https://api.themoviedb.org/3/discover/movie`,
+        {
+          params: {
+            page,
+            with_genres: genres,
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
+          },
+        }
       );
       return discoverMovies as TMDBMovies;
-    },
-    gcTime: Infinity,
-    staleTime: Infinity,
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
-    retry: false,
-  });
-}
-
-export function TrendingMovies() {
-  return useQuery<TMDBMovies>({
-    queryKey: ["trendingMovies"],
-    queryFn: async () => {
-      console.log("fetching trending movies");
-      const { data: trendingMovies } = await axios.get(
-        `https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
-      );
-      return trendingMovies as TMDBMovies;
     },
     gcTime: Infinity,
     staleTime: Infinity,
@@ -75,7 +67,7 @@ export function getMovieGenres() {
   });
 }
 
-export function getSearchMovies(query: string | null) {
+export function useSearchMovies(query: string | null) {
   return useQuery<TMDBMovies>({
     queryKey: ["searchMovies", query],
     queryFn: async () => {

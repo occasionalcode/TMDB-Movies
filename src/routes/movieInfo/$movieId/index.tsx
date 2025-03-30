@@ -1,5 +1,5 @@
+import MovieInfo from "@/component/movieInfo/-MovieInfo";
 import { createFileRoute } from "@tanstack/react-router";
-import MovieInfo from "../../../component/-MovieInfo";
 
 export const Route = createFileRoute("/movieInfo/$movieId/")({
   component: () => <MovieInfoIndex />,

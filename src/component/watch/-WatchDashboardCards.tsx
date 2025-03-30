@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { EyeOff, HeartCrack } from "lucide-react";
-import MovieImage from "./-MovieImage";
+import MovieImage from "../-MovieImage";
 import { Result } from "@/types/tmdb-types";
 
 type MovieCardsTypes = {

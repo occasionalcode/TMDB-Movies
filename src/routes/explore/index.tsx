@@ -1,22 +1,25 @@
 import { getDiscoverMovies } from "@/api/tmdb-fetch";
-import DiscoverMovies from "@/component/-DiscoverMovies";
-import SearchMovies from "@/component/-SearchMovies";
-import { useDiscoverVisibility } from "@/stores/discoverVisibilityStore";
-import { useGenreStore } from "@/stores/genreStore";
+import DiscoverMovies from "@/component/explore/-DiscoverMovies";
 
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { z } from "zod";
+
+const exploreSearchSchema = z.object({
+  page: z.number().default(1),
+  genres: z.number().array().optional(),
+});
 
 export const Route = createFileRoute("/explore/")({
+  validateSearch: exploreSearchSchema,
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  const { genreValues } = useGenreStore();
-  const { data, isLoading, error } = getDiscoverMovies(genreValues);
-  const { discoverVisibility } = useDiscoverVisibility();
-  console.log(discoverVisibility);
+  const { page, genres } = Route.useSearch();
+  const { data, isLoading, error } = getDiscoverMovies(genres, page);
+  const navigate = useNavigate();
   if (isLoading) {
-    return <div>loading</div>;
+    return <div className="min-h-dvh w-dvw bg-mainBg text-red-400"></div>;
   }
   if (error) {
     return (
@@ -27,9 +30,16 @@ function RouteComponent() {
   }
   if (data) {
     return (
-      <div>
-        <SearchMovies />
-        <div className={discoverVisibility ? `hidden` : "visible"}>
+      <div className="min-h-dvh">
+        <input
+          type="text"
+          onFocus={() => {
+            navigate({ to: "/search", search: { autoFocus: true } });
+          }}
+          placeholder="Search for movies..."
+          className="w-full bg-white h-10 rounded-lg px-5 py-2 my-10 text-black"
+        />
+        <div>
           <DiscoverMovies movies={data} />
         </div>
       </div>
