@@ -1,16 +1,17 @@
 import { TMDBMovies } from "@/types/tmdb-types";
+
+import MovieCards from "../-MovieCards";
 import { GenreDialog } from "./-GenreDialog";
-import MovieCards from "./-MovieCards";
 
 type DiscoverMovieTypes = {
   movies: TMDBMovies;
 };
 
-export default function DiscoverMovies(movies: DiscoverMovieTypes) {
+export default function DiscoverMovies({ movies }: DiscoverMovieTypes) {
   //   console.log(movies.movies.results[0].title);
 
   return (
-    <div className="px-10 mobileS:px-3">
+    <div className="pb-10  mobileS:px-3 ">
       <div className="h-full w-full flex justify-between">
         <div className="flex  gap-2">
           <div className="bg-white rounded-full w-2 h-10"></div>
@@ -21,10 +22,11 @@ export default function DiscoverMovies(movies: DiscoverMovieTypes) {
         <GenreDialog />
       </div>
       <div className="grid  gap-5 justify-center items-center grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-        {movies?.movies.results.map((movie) => (
+        {movies.results.map((movie) => (
           <MovieCards key={movie.id} movie={movie} />
         ))}
       </div>
+      {/* <MoviePagination /> */}
     </div>
   );
 }

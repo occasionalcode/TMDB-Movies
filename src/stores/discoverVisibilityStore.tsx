@@ -1,21 +1,19 @@
 import { create } from "zustand";
 
-type DiscoverVisibilityStoreValues = {
-  discoverVisibility: boolean;
+type RandomMovieStoreValues = {
+  RandomMovie: string;
 };
-type DiscoverVisibilityStoreAction = {
-  setDiscoverVisibility: (visibility: boolean) => void;
-};
-
-type DiscoverVisibility = DiscoverVisibilityStoreAction &
-  DiscoverVisibilityStoreValues;
-
-const DiscoverVisibilityDefaultValues: DiscoverVisibilityStoreValues = {
-  discoverVisibility: true,
+type RandomMovieStoreAction = {
+  setRandomMovie: (visibility: string) => void;
 };
 
-export const useDiscoverVisibility = create<DiscoverVisibility>((set) => ({
-  ...DiscoverVisibilityDefaultValues,
-  setDiscoverVisibility: (visibility: boolean) =>
-    set({ discoverVisibility: visibility }),
+type RandomMovie = RandomMovieStoreAction & RandomMovieStoreValues;
+
+const RandomMovieDefaultValues: RandomMovieStoreValues = {
+  RandomMovie: "",
+};
+
+export const useRandomMovie = create<RandomMovie>((set) => ({
+  ...RandomMovieDefaultValues,
+  setRandomMovie: (visibility: string) => set({ RandomMovie: visibility }),
 }));

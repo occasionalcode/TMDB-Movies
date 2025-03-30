@@ -6,6 +6,7 @@
 @theme {
   --breakpoint-mobileS: 320px;
   --breakpoint-mobileL: 425px;
+  --color-mainBg: "#[#030712]";
 
 }
 

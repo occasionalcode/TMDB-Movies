@@ -20,7 +20,9 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
     data: suggestedMovies,
     isLoading: suggestedLoading,
     error: suggestedError,
-  } = getDiscoverMovies(moviedetail?.genres?.map((genre) => genre.id) || null);
+  } = getDiscoverMovies(
+    moviedetail?.genres?.map((genre) => genre.id) || undefined
+  );
   const date = new Date(`${moviedetail?.release_date}`);
 
   type Provider = {

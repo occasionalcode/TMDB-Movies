@@ -26,6 +26,7 @@ export default function NavBar() {
             >
               Home
             </Link>
+
             <Link
               onClick={() => {
                 setIsOpen(false);
@@ -72,6 +73,7 @@ export default function NavBar() {
           <Link className="text-lg" to="/">
             Home
           </Link>
+
           <Link className="text-lg" to="/explore">
             Explore
           </Link>

@@ -1,9 +1,9 @@
-import { TrendingMovies } from "@/api/tmdb-fetch";
+import { getDiscoverMovies } from "@/api/tmdb-fetch";
 import MovieImage from "@/component/-MovieImage";
 import { Link } from "@tanstack/react-router";
 
 export default function Banner() {
-  const { data: movies, isLoading, error } = TrendingMovies();
+  const { data: movies, isLoading, error } = getDiscoverMovies();
   if (isLoading) {
     return (
       <div>
@@ -19,8 +19,9 @@ export default function Banner() {
     );
   }
   if (movies) {
-    const randomIndex = Math.floor(Math.random() * movies.results.length);
-    const randomMovie = movies.results[randomIndex];
+    // const randomIndex = Math.floor(Math.random() * movies.results.length);
+    const randomMovie = movies.results[0];
+
     return (
       <div className="pt-10 pb-10 w-full h-full">
         <div className="relative overflow-hidden h-full  rounded-xl">

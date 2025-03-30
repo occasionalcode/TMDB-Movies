@@ -9,16 +9,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/Customdialog";
 import { getMovieGenres } from "@/api/tmdb-fetch";
-import { useGenreStore } from "@/stores/genreStore";
 
-import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { Link, useSearch } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 export function GenreDialog() {
+  const { genres: filter } = useSearch({ from: "/explore/" });
   const { data: genres, isLoading, error } = getMovieGenres();
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
-  const { genreValues, setGenreStore } = useGenreStore();
-  console.log(genreValues, "zustand");
+
+  useEffect(() => {
+    if (filter) {
+      setSelectedGenres(filter);
+    }
+  }, []);
 
   console.log(selectedGenres, "console  ");
 
@@ -39,11 +43,16 @@ export function GenreDialog() {
     return (
       <Dialog>
         <DialogTrigger asChild>
-          <button className="bg-transparent text-white text-base lg:text-lg outline-2 lg:outline-[3px] px-4  lg:px-8 py-1 h-fit rounded-lg  outline-white hover:bg-[#1c1d20]">
-            Filter
-          </button>
+          <div className="relative">
+            <p
+              className={`text-white absolute -right-5 -top-4 bg-blue-500 text-sm px-3 py-1 rounded-full w-fit h-fit ${selectedGenres.length === 0 && "hidden"}`}
+            >{`${selectedGenres.length}`}</p>
+            <button className="bg-transparent text-white text-base lg:text-lg outline-2 lg:outline-[3px] px-4  lg:px-8 py-1 h-fit rounded-lg  outline-white hover:bg-[#1c1d20]">
+              Filter
+            </button>
+          </div>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md bg-[#030712]/70 text-white backdrop-blur-lg">
+        <DialogContent className="sm:max-w-md bg-[#030712]/70 text-white backdrop-blur-lg border-none ">
           <DialogHeader>
             <DialogTitle className="text-2xl">Filter</DialogTitle>
             <DialogDescription className="text-lg">
@@ -75,19 +84,24 @@ export function GenreDialog() {
               {/* <Button type="button" variant="secondary">
                 Close
               </Button> */}
-              <button className="outline-1 outline-white px-4 py-1 rounded-sm hover:bg-white hover:text-black">
-                Close
-              </button>
+              <Link
+                to="/explore"
+                search={{ page: 1 }}
+                onClick={() => setSelectedGenres([])}
+                className="outline-1 outline-white px-4 py-1 rounded-sm hover:bg-white hover:text-black"
+              >
+                Clear
+              </Link>
             </DialogClose>
-            <Link
-              to="/explore"
-              onClick={() => {
-                setGenreStore(selectedGenres);
-              }}
-              className="text-center px-4 py-1 rounded-sm bg-red-800 hover:bg-red-900"
-            >
-              Apply
-            </Link>
+            <DialogClose asChild>
+              <Link
+                to="/explore"
+                search={{ page: 1, genres: selectedGenres }}
+                className="text-center px-4 py-1 rounded-sm bg-red-800 hover:bg-red-900"
+              >
+                Apply
+              </Link>
+            </DialogClose>
           </DialogFooter>
         </DialogContent>
       </Dialog>
