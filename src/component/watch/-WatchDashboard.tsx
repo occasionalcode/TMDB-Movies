@@ -36,17 +36,20 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
       source: `https://vidsrc.cc/v2/embed/movie/${movieId}?autoPlay=false`,
     },
     {
-      name: "Vidjoy (no ads)",
-      source: `https://vidjoy.pro/embed/movie/${movieId}`,
+      name: "VidsrcTO",
+      source: `https://vidsrc.to/embed/movie/${movieId}`,
     },
-
+    {
+      name: "Embed (HD)",
+      source: `https://embed.su/embed/movie/${movieId}`,
+    },
     {
       name: "VidsrcVIP",
       source: `https://vidsrc.vip/embed/movie/${movieId}`,
     },
     {
-      name: "Embed",
-      source: `https://embed.su/embed/movie/${movieId}`,
+      name: "Vidjoy",
+      source: `https://vidjoy.pro/embed/movie/${movieId}`,
     },
   ];
 
