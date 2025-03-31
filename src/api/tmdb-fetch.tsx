@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { MovieDetails, MovieGenres, TMDBMovies } from "../types/tmdb-types";
 import axios from "axios";
+import { HLSResponse } from "@/types/m3u8-types";
 
 export function getDiscoverMovies(
   genres?: number[] | undefined,
@@ -83,5 +84,24 @@ export function useSearchMovies(query: string | null) {
     refetchOnWindowFocus: false,
     retry: false,
     enabled: !!query,
+  });
+}
+
+export function useMovieHLS(id: number) {
+  return useQuery<HLSResponse>({
+    queryKey: ["hlsResponse", id],
+    queryFn: async () => {
+      console.log("fetching genres");
+      const { data: hlsResponse } = await axios.get(
+        `https://hono-rabbit-scraper.occasionalprogrammer.workers.dev/api/rabbit/fetch`,
+        { params: { mediaId: id } }
+      );
+      return hlsResponse as HLSResponse;
+    },
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
   });
 }
