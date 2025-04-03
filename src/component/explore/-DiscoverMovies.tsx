@@ -1,13 +1,13 @@
 import { TMDBMovies } from "@/types/tmdb-types";
 
-import MovieCards from "../-MovieCards";
 import { GenreDialog } from "./-GenreDialog";
+import { MovieCards } from "../-MovieCards";
 
 type DiscoverMovieTypes = {
   movies: TMDBMovies;
 };
 
-export default function DiscoverMovies({ movies }: DiscoverMovieTypes) {
+export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
   //   console.log(movies.movies.results[0].title);
 
   return (

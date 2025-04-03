@@ -5,29 +5,16 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carouselCategories";
-import { getDiscoverMovies } from "@/api/tmdb-fetch";
-import MovieCards from "../-MovieCards";
+
+import { MovieCards } from "../-MovieCards";
+import { TMDBMovies } from "@/types/tmdb-types";
 
 type MovieCategorytypes = {
   category: string;
-  genrefilter: number;
+  movies: TMDBMovies;
 };
 
-export default function MovieCategories({
-  category,
-  genrefilter,
-}: MovieCategorytypes) {
-  const { data: movies, isLoading, error } = getDiscoverMovies([genrefilter]);
-  if (isLoading) {
-    <div>
-      <p>loading</p>
-    </div>;
-  }
-  if (error) {
-    <div>
-      <p>{error.message}</p>
-    </div>;
-  }
+export function MovieCategories({ category, movies }: MovieCategorytypes) {
   if (movies) {
     return (
       <div className="pb-16">
@@ -53,8 +40,6 @@ export default function MovieCategories({
                   </CarouselItem>
                 );
               })}
-
-              {/* <CharacterCard character={data?.characters!} /> */}
             </CarouselContent>
             <CarouselPrevious className="absolute left-0 h-full  bg-gradient-to-r from-black to-transparent bg-transparent border-none rounded-none hover:bg-transparent" />
             <CarouselNext className="absolute right-0 h-full  bg-gradient-to-l from-black to-transparent bg-transparent border-none rounded-none hover:bg-transparent" />

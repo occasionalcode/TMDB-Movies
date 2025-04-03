@@ -1,13 +1,14 @@
 import { Link } from "@tanstack/react-router";
 import { EyeOff, HeartCrack } from "lucide-react";
-import MovieImage from "../-MovieImage";
+
 import { Result } from "@/types/tmdb-types";
+import MovieImage from "../-MovieImage";
 
 type MovieCardsTypes = {
   movie: Result;
 };
 
-export default function MovieCards({ movie }: MovieCardsTypes) {
+export function WatchMovieCards({ movie }: MovieCardsTypes) {
   const date = new Date(`${movie?.release_date}`);
   return (
     <Link

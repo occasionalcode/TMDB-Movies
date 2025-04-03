@@ -7,7 +7,7 @@ type MovieCardsTypes = {
   movie: Result;
 };
 
-export default function MovieCards(movie: MovieCardsTypes) {
+export function MovieCards(movie: MovieCardsTypes) {
   return (
     <Link
       to="/movieInfo/$movieId"

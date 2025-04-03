@@ -39,9 +39,9 @@ export default function NavBar() {
               onClick={() => {
                 setIsOpen(false);
               }}
-              to="/"
+              to="/search"
             >
-              About
+              Search
             </Link>
           </div>
         </div>
@@ -77,8 +77,12 @@ export default function NavBar() {
           <Link className="text-lg" to="/explore">
             Explore
           </Link>
-          <Link className="text-lg" to="/">
-            About
+          <Link
+            className="text-lg flex gap-3"
+            to="/search"
+            search={{ page: 1 }}
+          >
+            Search
           </Link>
         </div>
       </div>

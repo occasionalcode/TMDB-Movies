@@ -1,12 +1,16 @@
 import { useSearchMovies } from "@/api/tmdb-fetch";
 import { useEffect, useRef, useState } from "react";
-import MovieCards from "../-MovieCards";
-import { Skeleton } from "@/components/ui/skeleton";
 
-export default function SearchMovies() {
+import { Skeleton } from "@/components/ui/skeleton";
+import { MovieCards } from "../-MovieCards";
+import { Link, useNavigate } from "@tanstack/react-router";
+
+export function SearchMovies() {
   const [query, setQuery] = useState<string>("");
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
   const { data, isLoading, isError } = useSearchMovies(debouncedQuery);
+  const navigate = useNavigate();
+
   const skeletonArray = new Array(10).fill(null);
 
   // Ref for the input field
@@ -24,19 +28,29 @@ export default function SearchMovies() {
     const handler = setTimeout(() => {
       setDebouncedQuery(query);
     }, 1000);
+
     return () => clearTimeout(handler);
   }, [query]);
 
+  useEffect(() => {
+    navigate({
+      to: "/search",
+      search: { titleQuery: debouncedQuery, page: 1 },
+    });
+  }, [debouncedQuery]);
+
   return (
     <div className="movie-search text-white">
-      <input
-        ref={inputRef} // Attach the ref to the input field
-        type="text"
-        placeholder="Search for movies..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-full bg-white h-10 rounded-lg px-5 py-2 my-10 text-black"
-      />
+      <div className="w-full px-3">
+        <input
+          ref={inputRef} // Attach the ref to the input field
+          type="text"
+          placeholder="Search for movies..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full px-4  bg-white h-10 rounded-lg py-2 my-10 text-black"
+        />
+      </div>
 
       {isLoading && (
         <div className="grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
@@ -66,8 +80,16 @@ export default function SearchMovies() {
           </div>
         </div>
       ) : (
-        <div className="w-full h-full flex flex-col justify-center items-center">
-          <p className="text-3xl font-medium">What do you wanna watch?</p>
+        <div className="w-full h-full gap-5 flex flex-col justify-center items-center">
+          <p className="text-3xl font-medium text-center px-3">
+            What do you wanna watch?
+          </p>
+          <Link
+            to="/explore"
+            className="bg-red-800 font-semibold px-3 py-1 rounded-sm"
+          >
+            Explore movies
+          </Link>
         </div>
       )}
     </div>

@@ -1,4 +1,4 @@
-import Dashboard from "@/component/dashboard/-Dashboard";
+import { Dashboard } from "@/component/dashboard";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({

@@ -1,7 +1,7 @@
-import { getDiscoverMovies } from "@/api/tmdb-fetch";
-import DiscoverMovies from "@/component/explore/-DiscoverMovies";
+import { useDiscoverMovies } from "@/api/tmdb-fetch";
+import { DiscoverMovies } from "@/component/explore";
 
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 
 const exploreSearchSchema = z.object({
@@ -16,8 +16,7 @@ export const Route = createFileRoute("/explore/")({
 
 function RouteComponent() {
   const { page, genres } = Route.useSearch();
-  const { data, isLoading, error } = getDiscoverMovies(genres, page);
-  const navigate = useNavigate();
+  const { data, isLoading, error } = useDiscoverMovies(genres, page);
   if (isLoading) {
     return <div className="min-h-dvh w-dvw bg-mainBg text-red-400"></div>;
   }
@@ -31,15 +30,16 @@ function RouteComponent() {
   if (data) {
     return (
       <div className="min-h-dvh">
-        <input
+        {/* <input
           type="text"
           onFocus={() => {
-            navigate({ to: "/search", search: { autoFocus: true } });
+            // navigate({ to: "/search", from});
           }}
           placeholder="Search for movies..."
           className="w-full bg-white h-10 rounded-lg px-5 py-2 my-10 text-black"
-        />
-        <div>
+        /> */}
+
+        <div className="pt-10">
           <DiscoverMovies movies={data} />
         </div>
       </div>

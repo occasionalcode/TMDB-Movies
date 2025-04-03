@@ -1,37 +1,51 @@
-import { getDiscoverMovies } from "../../api/tmdb-fetch";
-import Banner from "./-Banner";
-import { useRandomMovie } from "@/stores/discoverVisibilityStore";
-import MovieCategories from "./-MovieCategories";
+import LoadingScreen from "@/layouts/-LoadingScreen";
+import { Banner, MovieCategories } from ".";
+import { useDiscoverMovies } from "@/api/tmdb-fetch";
 
-export default function Dashboard() {
-  const { data, isLoading, error } = getDiscoverMovies();
-  const { RandomMovie: discoverVisibility } = useRandomMovie();
-  console.log(discoverVisibility);
+export function Dashboard() {
+  const categories = [
+    { category: "Animation", genreId: 16 },
+    { category: "Fantasy", genreId: 14 },
+    { category: "Adventure", genreId: 12 },
+    { category: "Action", genreId: 28 },
+    { category: "War", genreId: 10752 },
+    { category: "Mystery", genreId: 9648 },
+    { category: "Horror", genreId: 27 },
+  ];
+
+  const {
+    data: banner,
+    isLoading: bannerLoading,
+    error: bannerError,
+  } = useDiscoverMovies();
+
+  const categoryData = categories.map(({ genreId }) =>
+    useDiscoverMovies([genreId])
+  );
+
+  const isLoading =
+    bannerLoading || categoryData.some(({ isLoading }) => isLoading);
+  const hasError = bannerError || categoryData.some(({ error }) => error);
 
   if (isLoading) {
-    return <div>loading</div>;
-  }
-  if (error) {
-    return (
-      <div>
-        <p>{error.message}</p>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
-  if (data)
-    return (
-      <div className="w-full">
-        <Banner />
-        <div>
-          <MovieCategories category="Animation" genrefilter={16} />
-          <MovieCategories category="Fantasy" genrefilter={14} />
-          <MovieCategories category="Adventure" genrefilter={12} />
-          <MovieCategories category="Action" genrefilter={28} />
-          <MovieCategories category="War" genrefilter={10752} />
-          <MovieCategories category="Mystery" genrefilter={9648} />
-          <MovieCategories category="Horror" genrefilter={27} />
-        </div>
+  if (hasError) {
+    return <p>Error loading data. Please try again later.</p>;
+  }
+
+  return (
+    <div className="w-full">
+      {banner && <Banner movies={banner} />}
+      <div>
+        {categories.map(({ category }, index) => {
+          const { data } = categoryData[index];
+          return data ? (
+            <MovieCategories key={category} category={category} movies={data} />
+          ) : null;
+        })}
       </div>
-    );
+    </div>
+  );
 }

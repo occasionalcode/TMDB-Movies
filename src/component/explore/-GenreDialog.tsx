@@ -8,14 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/Customdialog";
-import { getMovieGenres } from "@/api/tmdb-fetch";
+import { useMovieGenres } from "@/api/tmdb-fetch";
 
 import { Link, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
 export function GenreDialog() {
   const { genres: filter } = useSearch({ from: "/explore/" });
-  const { data: genres, isLoading, error } = getMovieGenres();
+  const { data: genres, isLoading, error } = useMovieGenres();
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
   useEffect(() => {

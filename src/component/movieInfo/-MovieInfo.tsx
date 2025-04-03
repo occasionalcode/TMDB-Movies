@@ -1,4 +1,4 @@
-import { getMovieDetails } from "@/api/tmdb-fetch";
+import { useMovieDetails } from "@/api/tmdb-fetch";
 import MovieImage from "@/component/-MovieImage";
 import { Link } from "@tanstack/react-router";
 import { Play } from "lucide-react";
@@ -7,9 +7,9 @@ type MovieInfotype = {
   id: string;
 };
 
-export default function MovieInfo(id: MovieInfotype) {
+export function MovieInfo(id: MovieInfotype) {
   const movieId = Number(id.id);
-  const { data: movie, isLoading, error } = getMovieDetails(movieId);
+  const { data: movie, isLoading, error } = useMovieDetails(movieId);
 
   console.log(movieId);
   console.log(movie?.overview);

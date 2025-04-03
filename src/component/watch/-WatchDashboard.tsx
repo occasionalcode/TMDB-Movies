@@ -1,13 +1,14 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
 import {
-  getDiscoverMovies,
-  getMovieDetails,
+  useDiscoverMovies,
+  useMovieDetails,
   useMovieHLS,
 } from "@/api/tmdb-fetch";
-import WatchDashboardCards from "./-WatchDashboardCards";
+
 import VideoPlayer from "../-VideoPlayer";
 import { HeartCrack } from "lucide-react";
+import { WatchMovieCards } from "./-WatchMovieCards";
 
 type WatchDashboardType = {
   movieId: string;
@@ -27,12 +28,12 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
     data: moviedetail,
     isLoading,
     error,
-  } = getMovieDetails(Number(movieId));
+  } = useMovieDetails(Number(movieId));
   const {
     data: suggestedMovies,
     isLoading: suggestedLoading,
     error: suggestedError,
-  } = getDiscoverMovies(
+  } = useDiscoverMovies(
     moviedetail?.genres?.map((genre) => genre.id) || undefined
   );
   const date = new Date(`${moviedetail?.release_date}`);
@@ -174,7 +175,7 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
               {suggestedMovies.results.map((movies) => (
                 <div key={movies.id}>
                   {Number(movieId) !== movies.id && (
-                    <WatchDashboardCards movie={movies} />
+                    <WatchMovieCards movie={movies} />
                   )}
                 </div>
               ))}

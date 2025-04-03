@@ -3,7 +3,7 @@ import { MovieDetails, MovieGenres, TMDBMovies } from "../types/tmdb-types";
 import axios from "axios";
 import { HLSResponse } from "@/types/m3u8-types";
 
-export function getDiscoverMovies(
+export function useDiscoverMovies(
   genres?: number[] | undefined,
   page?: number | undefined
 ) {
@@ -32,13 +32,18 @@ export function getDiscoverMovies(
   });
 }
 
-export function getMovieDetails(id: number) {
+export function useMovieDetails(id: number) {
   return useQuery<MovieDetails>({
     queryKey: ["movieDetails", id],
     queryFn: async () => {
       console.log("fetching movie details");
       const { data: movieDetails } = await axios.get(
-        `https://api.themoviedb.org/3/movie/${id}?language=en-US&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+        `https://api.themoviedb.org/3/movie/${id}`,
+        {
+          params: {
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
+          },
+        }
       );
       return movieDetails as MovieDetails;
     },
@@ -50,13 +55,18 @@ export function getMovieDetails(id: number) {
   });
 }
 
-export function getMovieGenres() {
+export function useMovieGenres() {
   return useQuery<MovieGenres>({
     queryKey: ["movieGenres"],
     queryFn: async () => {
       console.log("fetching genres");
       const { data: movieGenres } = await axios.get(
-        `https://api.themoviedb.org/3/genre/movie/list?language=en&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+        `https://api.themoviedb.org/3/genre/movie/list`,
+        {
+          params: {
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
+          },
+        }
       );
       return movieGenres as MovieGenres;
     },
@@ -74,7 +84,13 @@ export function useSearchMovies(query: string | null) {
     queryFn: async () => {
       console.log("searching movies");
       const { data: searchMovies } = await axios.get(
-        `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1&api_key=${import.meta.env.VITE_TMDB_API_KEY}`
+        `https://api.themoviedb.org/3/search/movie`,
+        {
+          params: {
+            query: query,
+            api_key: import.meta.env.VITE_TMDB_API_KEY,
+          },
+        }
       );
       return searchMovies as TMDBMovies;
     },
@@ -93,7 +109,7 @@ export function useMovieHLS(id: number) {
     queryFn: async () => {
       console.log("fetching genres");
       const { data: hlsResponse } = await axios.get(
-        `https://hono-rabbit-scraper.occasionalprogrammer.workers.dev/api/rabbit/fetch`,
+        `https://api.themoviedb.org/3/search/movie`,
         { params: { mediaId: id } }
       );
       return hlsResponse as HLSResponse;
