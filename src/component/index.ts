@@ -1,6 +1,6 @@
 export * from "./-MovieCards";
 export * from "./-MovieImage";
-export * from "./-MoviePagination";
+export * from "./-Pagination";
 export * from "./-VideoPlayer";
 export * from "./dashboard";
 export * from "./explore";

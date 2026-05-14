@@ -78,9 +78,12 @@ export function useMovieGenres() {
   });
 }
 
-export function useSearchMovies(query: string | null) {
+export function useSearchMovies(
+  query: string | null,
+  page?: number | undefined
+) {
   return useQuery<TMDBMovies>({
-    queryKey: ["searchMovies", query],
+    queryKey: ["searchMovies", query, page],
     queryFn: async () => {
       console.log("searching movies");
       const { data: searchMovies } = await axios.get(
@@ -89,6 +92,7 @@ export function useSearchMovies(query: string | null) {
           params: {
             query: query,
             api_key: import.meta.env.VITE_TMDB_API_KEY,
+            page: page,
           },
         }
       );

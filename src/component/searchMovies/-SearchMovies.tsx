@@ -3,12 +3,14 @@ import { useEffect, useRef, useState } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { MovieCards } from "../-MovieCards";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useNavigate, useSearch } from "@tanstack/react-router";
+import Pagination from "../-Pagination";
 
 export function SearchMovies() {
   const [query, setQuery] = useState<string>("");
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
-  const { data, isLoading, isError } = useSearchMovies(debouncedQuery);
+  const { page } = useSearch({ from: "/search/" });
+  const { data, isLoading, isError } = useSearchMovies(debouncedQuery, page);
   const navigate = useNavigate();
 
   const skeletonArray = new Array(10).fill(null);
@@ -78,6 +80,16 @@ export function SearchMovies() {
               <MovieCards key={movie.id} movie={movie} />
             ))}
           </div>
+          <Pagination
+            totalPages={data.total_pages}
+            handlePageChange={(_, page) => {
+              navigate({
+                to: "/search",
+                search: { page: page, titleQuery: debouncedQuery },
+              });
+            }}
+            currentPage={page || 1}
+          />
         </div>
       ) : (
         <div className="w-full h-full gap-5 flex flex-col justify-center items-center">

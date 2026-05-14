@@ -2,6 +2,8 @@ import { TMDBMovies } from "@/types/tmdb-types";
 
 import { GenreDialog } from "./-GenreDialog";
 import { MovieCards } from "../-MovieCards";
+import Pagination from "../-Pagination";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 
 type DiscoverMovieTypes = {
   movies: TMDBMovies;
@@ -9,6 +11,9 @@ type DiscoverMovieTypes = {
 
 export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
   //   console.log(movies.movies.results[0].title);
+
+  const { page, genres } = useSearch({ from: "/explore/" });
+  const navigate = useNavigate();
 
   return (
     <div className="pb-10  mobileS:px-3 ">
@@ -26,7 +31,16 @@ export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
           <MovieCards key={movie.id} movie={movie} />
         ))}
       </div>
-      {/* <MoviePagination /> */}
+      <Pagination
+        handlePageChange={(_, page) => {
+          navigate({
+            to: "/explore",
+            search: { page: page, genres: genres },
+          });
+        }}
+        currentPage={page || 1}
+        totalPages={movies.total_pages}
+      />
     </div>
   );
 }

@@ -67,7 +67,7 @@ export default function NavBar() {
           to="/"
           className="[&.active]:font-bold text-white text-5xl sticky"
         >
-          i<span className="text-red-500">luv</span>Pirates
+          <span className="text-red-500">N</span>EFILIX
         </Link>
         <div className="flex gap-10 pr-10">
           <Link className="text-lg" to="/">
