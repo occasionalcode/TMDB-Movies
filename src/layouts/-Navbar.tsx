@@ -55,7 +55,7 @@ export default function NavBar() {
           </button>
           <Link
             to="/"
-            className="[&.active]:font-bold text-white text-5xl sticky"
+            className="font-bold text-white text-5xl sticky"
           >
             i<span className="text-red-500">l</span>P
           </Link>
@@ -65,7 +65,7 @@ export default function NavBar() {
       <div className="p-2 flex gap-2 text-white justify-between items-center mobileS:hidden lg:flex">
         <Link
           to="/"
-          className="[&.active]:font-bold text-white text-5xl sticky"
+          className="font-bold text-white text-5xl sticky"
         >
           <span className="text-red-500">N</span>EFILIX
         </Link>
