@@ -12,7 +12,7 @@ type DiscoverMovieTypes = {
 export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
   //   console.log(movies.movies.results[0].title);
 
-  const { page, genres } = useSearch({ from: "/explore/" });
+  const { page, genres } = useSearch({ from: "/movies/explore/" });
   const navigate = useNavigate();
 
   return (
@@ -34,7 +34,7 @@ export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
       <Pagination
         handlePageChange={(_, page) => {
           navigate({
-            to: "/explore",
+            to: "/movies/explore",
             search: { page: page, genres: genres },
           });
         }}

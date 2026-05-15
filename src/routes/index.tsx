@@ -1,17 +1,8 @@
-import { Dashboard } from "@/component/dashboard";
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/")({
-  component: Index,
+  beforeLoad: () => {
+    throw redirect({ to: "/movies" });
+  },
+  component: () => null,
 });
-
-function Index() {
-  return (
-    <div className="p-2 bg-[#020713] flex items-start justify-center min-h-dvh w-auto">
-      <div className="w-full">
-        <Dashboard />
-        <Outlet />
-      </div>
-    </div>
-  );
-}

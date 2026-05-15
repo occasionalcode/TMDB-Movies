@@ -86,3 +86,89 @@ export interface Genre {
   id:   number;
   name: string;
 }
+
+// TV Show list result
+export interface TVResult {
+  backdrop_path: string | null;
+  first_air_date: string;
+  genre_ids: number[];
+  id: number;
+  name: string;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string | null;
+  vote_average: number;
+  vote_count: number;
+}
+
+// TV Show list response
+export interface TMDBTVShows {
+  page: number;
+  results: TVResult[];
+  total_pages: number;
+  total_results: number;
+}
+
+// TV Season summary (from show details)
+export interface TVSeasonSummary {
+  air_date: string | null;
+  episode_count: number;
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  season_number: number;
+  vote_average: number;
+}
+
+// TV Show full details
+export interface TVDetails {
+  adult: boolean;
+  backdrop_path: string | null;
+  first_air_date: string;
+  genres: Genre[];
+  id: number;
+  name: string;
+  number_of_episodes: number;
+  number_of_seasons: number;
+  origin_country: string[];
+  original_language: string;
+  original_name: string;
+  overview: string;
+  popularity: number;
+  poster_path: string | null;
+  seasons: TVSeasonSummary[];
+  status: string;
+  tagline: string;
+  vote_average: number;
+  vote_count: number;
+}
+
+// TV Episode
+export interface TVEpisode {
+  air_date: string | null;
+  episode_number: number;
+  id: number;
+  name: string;
+  overview: string;
+  runtime: number | null;
+  season_number: number;
+  show_id: number;
+  still_path: string | null;
+  vote_average: number;
+  vote_count: number;
+}
+
+// Season with episodes
+export interface TVSeasonDetails {
+  air_date: string | null;
+  episodes: TVEpisode[];
+  id: number;
+  name: string;
+  overview: string;
+  poster_path: string | null;
+  season_number: number;
+}

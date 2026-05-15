@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { MovieDetails, MovieGenres, TMDBMovies } from "../types/tmdb-types";
+import { MovieDetails, MovieGenres, TMDBMovies, TMDBTVShows, TVDetails, TVSeasonDetails } from "../types/tmdb-types";
 import axios from "axios";
 import { HLSResponse } from "@/types/m3u8-types";
 
@@ -17,7 +17,7 @@ export function useDiscoverMovies(
         {
           params: {
             page,
-            with_genres: genres,
+            with_genres: genres?.join(","),
             api_key: import.meta.env.VITE_TMDB_API_KEY,
           },
         }
@@ -97,6 +97,101 @@ export function useSearchMovies(
         }
       );
       return searchMovies as TMDBMovies;
+    },
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+    enabled: !!query,
+  });
+}
+
+export function useDiscoverTV(genres?: number[], page?: number) {
+  return useQuery<TMDBTVShows>({
+    queryKey: ["discoverTV", genres, page],
+    queryFn: async () => {
+      const { data } = await axios.get(`https://api.themoviedb.org/3/discover/tv`, {
+        params: {
+          page,
+          with_genres: genres?.join(","),
+          api_key: import.meta.env.VITE_TMDB_API_KEY,
+        },
+      });
+      return data as TMDBTVShows;
+    },
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+}
+
+export function useTVDetails(id: number) {
+  return useQuery<TVDetails>({
+    queryKey: ["tvDetails", id],
+    queryFn: async () => {
+      const { data } = await axios.get(`https://api.themoviedb.org/3/tv/${id}`, {
+        params: { api_key: import.meta.env.VITE_TMDB_API_KEY },
+      });
+      return data as TVDetails;
+    },
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+}
+
+export function useTVSeason(id: number, seasonNumber: number) {
+  return useQuery<TVSeasonDetails>({
+    queryKey: ["tvSeason", id, seasonNumber],
+    queryFn: async () => {
+      const { data } = await axios.get(
+        `https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}`,
+        { params: { api_key: import.meta.env.VITE_TMDB_API_KEY } }
+      );
+      return data as TVSeasonDetails;
+    },
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+}
+
+export function useTVGenres() {
+  return useQuery<MovieGenres>({
+    queryKey: ["tvGenres"],
+    queryFn: async () => {
+      const { data } = await axios.get(`https://api.themoviedb.org/3/genre/tv/list`, {
+        params: { api_key: import.meta.env.VITE_TMDB_API_KEY },
+      });
+      return data as MovieGenres;
+    },
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+  });
+}
+
+export function useSearchTV(query: string | null, page?: number) {
+  return useQuery<TMDBTVShows>({
+    queryKey: ["searchTV", query, page],
+    queryFn: async () => {
+      const { data } = await axios.get(`https://api.themoviedb.org/3/search/tv`, {
+        params: {
+          query,
+          api_key: import.meta.env.VITE_TMDB_API_KEY,
+          page,
+        },
+      });
+      return data as TMDBTVShows;
     },
     gcTime: Infinity,
     staleTime: Infinity,

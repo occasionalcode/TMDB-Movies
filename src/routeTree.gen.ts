@@ -13,9 +13,15 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as SplatImport } from './routes/$'
 import { Route as IndexImport } from './routes/index'
-import { Route as SearchIndexImport } from './routes/search/index'
-import { Route as ExploreIndexImport } from './routes/explore/index'
+import { Route as TvIndexImport } from './routes/tv/index'
+import { Route as MoviesIndexImport } from './routes/movies/index'
+import { Route as WatchTVTvIdIndexImport } from './routes/watchTV/$tvId/index'
 import { Route as WatchMovieIdIndexImport } from './routes/watch/$movieId/index'
+import { Route as TvInfoTvIdIndexImport } from './routes/tvInfo/$tvId/index'
+import { Route as TvSearchIndexImport } from './routes/tv/search/index'
+import { Route as TvExploreIndexImport } from './routes/tv/explore/index'
+import { Route as MoviesSearchIndexImport } from './routes/movies/search/index'
+import { Route as MoviesExploreIndexImport } from './routes/movies/explore/index'
 import { Route as MovieInfoMovieIdIndexImport } from './routes/movieInfo/$movieId/index'
 
 // Create/Update Routes
@@ -32,21 +38,57 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const SearchIndexRoute = SearchIndexImport.update({
-  id: '/search/',
-  path: '/search/',
+const TvIndexRoute = TvIndexImport.update({
+  id: '/tv/',
+  path: '/tv/',
   getParentRoute: () => rootRoute,
 } as any)
 
-const ExploreIndexRoute = ExploreIndexImport.update({
-  id: '/explore/',
-  path: '/explore/',
+const MoviesIndexRoute = MoviesIndexImport.update({
+  id: '/movies/',
+  path: '/movies/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const WatchTVTvIdIndexRoute = WatchTVTvIdIndexImport.update({
+  id: '/watchTV/$tvId/',
+  path: '/watchTV/$tvId/',
   getParentRoute: () => rootRoute,
 } as any)
 
 const WatchMovieIdIndexRoute = WatchMovieIdIndexImport.update({
   id: '/watch/$movieId/',
   path: '/watch/$movieId/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TvInfoTvIdIndexRoute = TvInfoTvIdIndexImport.update({
+  id: '/tvInfo/$tvId/',
+  path: '/tvInfo/$tvId/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TvSearchIndexRoute = TvSearchIndexImport.update({
+  id: '/tv/search/',
+  path: '/tv/search/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TvExploreIndexRoute = TvExploreIndexImport.update({
+  id: '/tv/explore/',
+  path: '/tv/explore/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MoviesSearchIndexRoute = MoviesSearchIndexImport.update({
+  id: '/movies/search/',
+  path: '/movies/search/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MoviesExploreIndexRoute = MoviesExploreIndexImport.update({
+  id: '/movies/explore/',
+  path: '/movies/explore/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -74,18 +116,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplatImport
       parentRoute: typeof rootRoute
     }
-    '/explore/': {
-      id: '/explore/'
-      path: '/explore'
-      fullPath: '/explore'
-      preLoaderRoute: typeof ExploreIndexImport
+    '/movies/': {
+      id: '/movies/'
+      path: '/movies'
+      fullPath: '/movies'
+      preLoaderRoute: typeof MoviesIndexImport
       parentRoute: typeof rootRoute
     }
-    '/search/': {
-      id: '/search/'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchIndexImport
+    '/tv/': {
+      id: '/tv/'
+      path: '/tv'
+      fullPath: '/tv'
+      preLoaderRoute: typeof TvIndexImport
       parentRoute: typeof rootRoute
     }
     '/movieInfo/$movieId/': {
@@ -95,11 +137,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MovieInfoMovieIdIndexImport
       parentRoute: typeof rootRoute
     }
+    '/movies/explore/': {
+      id: '/movies/explore/'
+      path: '/movies/explore'
+      fullPath: '/movies/explore'
+      preLoaderRoute: typeof MoviesExploreIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/movies/search/': {
+      id: '/movies/search/'
+      path: '/movies/search'
+      fullPath: '/movies/search'
+      preLoaderRoute: typeof MoviesSearchIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/tv/explore/': {
+      id: '/tv/explore/'
+      path: '/tv/explore'
+      fullPath: '/tv/explore'
+      preLoaderRoute: typeof TvExploreIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/tv/search/': {
+      id: '/tv/search/'
+      path: '/tv/search'
+      fullPath: '/tv/search'
+      preLoaderRoute: typeof TvSearchIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/tvInfo/$tvId/': {
+      id: '/tvInfo/$tvId/'
+      path: '/tvInfo/$tvId'
+      fullPath: '/tvInfo/$tvId'
+      preLoaderRoute: typeof TvInfoTvIdIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/watch/$movieId/': {
       id: '/watch/$movieId/'
       path: '/watch/$movieId'
       fullPath: '/watch/$movieId'
       preLoaderRoute: typeof WatchMovieIdIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/watchTV/$tvId/': {
+      id: '/watchTV/$tvId/'
+      path: '/watchTV/$tvId'
+      fullPath: '/watchTV/$tvId'
+      preLoaderRoute: typeof WatchTVTvIdIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -110,29 +194,47 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/explore': typeof ExploreIndexRoute
-  '/search': typeof SearchIndexRoute
+  '/movies': typeof MoviesIndexRoute
+  '/tv': typeof TvIndexRoute
   '/movieInfo/$movieId': typeof MovieInfoMovieIdIndexRoute
+  '/movies/explore': typeof MoviesExploreIndexRoute
+  '/movies/search': typeof MoviesSearchIndexRoute
+  '/tv/explore': typeof TvExploreIndexRoute
+  '/tv/search': typeof TvSearchIndexRoute
+  '/tvInfo/$tvId': typeof TvInfoTvIdIndexRoute
   '/watch/$movieId': typeof WatchMovieIdIndexRoute
+  '/watchTV/$tvId': typeof WatchTVTvIdIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/explore': typeof ExploreIndexRoute
-  '/search': typeof SearchIndexRoute
+  '/movies': typeof MoviesIndexRoute
+  '/tv': typeof TvIndexRoute
   '/movieInfo/$movieId': typeof MovieInfoMovieIdIndexRoute
+  '/movies/explore': typeof MoviesExploreIndexRoute
+  '/movies/search': typeof MoviesSearchIndexRoute
+  '/tv/explore': typeof TvExploreIndexRoute
+  '/tv/search': typeof TvSearchIndexRoute
+  '/tvInfo/$tvId': typeof TvInfoTvIdIndexRoute
   '/watch/$movieId': typeof WatchMovieIdIndexRoute
+  '/watchTV/$tvId': typeof WatchTVTvIdIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
-  '/explore/': typeof ExploreIndexRoute
-  '/search/': typeof SearchIndexRoute
+  '/movies/': typeof MoviesIndexRoute
+  '/tv/': typeof TvIndexRoute
   '/movieInfo/$movieId/': typeof MovieInfoMovieIdIndexRoute
+  '/movies/explore/': typeof MoviesExploreIndexRoute
+  '/movies/search/': typeof MoviesSearchIndexRoute
+  '/tv/explore/': typeof TvExploreIndexRoute
+  '/tv/search/': typeof TvSearchIndexRoute
+  '/tvInfo/$tvId/': typeof TvInfoTvIdIndexRoute
   '/watch/$movieId/': typeof WatchMovieIdIndexRoute
+  '/watchTV/$tvId/': typeof WatchTVTvIdIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -140,45 +242,75 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$'
-    | '/explore'
-    | '/search'
+    | '/movies'
+    | '/tv'
     | '/movieInfo/$movieId'
+    | '/movies/explore'
+    | '/movies/search'
+    | '/tv/explore'
+    | '/tv/search'
+    | '/tvInfo/$tvId'
     | '/watch/$movieId'
+    | '/watchTV/$tvId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/$'
-    | '/explore'
-    | '/search'
+    | '/movies'
+    | '/tv'
     | '/movieInfo/$movieId'
+    | '/movies/explore'
+    | '/movies/search'
+    | '/tv/explore'
+    | '/tv/search'
+    | '/tvInfo/$tvId'
     | '/watch/$movieId'
+    | '/watchTV/$tvId'
   id:
     | '__root__'
     | '/'
     | '/$'
-    | '/explore/'
-    | '/search/'
+    | '/movies/'
+    | '/tv/'
     | '/movieInfo/$movieId/'
+    | '/movies/explore/'
+    | '/movies/search/'
+    | '/tv/explore/'
+    | '/tv/search/'
+    | '/tvInfo/$tvId/'
     | '/watch/$movieId/'
+    | '/watchTV/$tvId/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SplatRoute: typeof SplatRoute
-  ExploreIndexRoute: typeof ExploreIndexRoute
-  SearchIndexRoute: typeof SearchIndexRoute
+  MoviesIndexRoute: typeof MoviesIndexRoute
+  TvIndexRoute: typeof TvIndexRoute
   MovieInfoMovieIdIndexRoute: typeof MovieInfoMovieIdIndexRoute
+  MoviesExploreIndexRoute: typeof MoviesExploreIndexRoute
+  MoviesSearchIndexRoute: typeof MoviesSearchIndexRoute
+  TvExploreIndexRoute: typeof TvExploreIndexRoute
+  TvSearchIndexRoute: typeof TvSearchIndexRoute
+  TvInfoTvIdIndexRoute: typeof TvInfoTvIdIndexRoute
   WatchMovieIdIndexRoute: typeof WatchMovieIdIndexRoute
+  WatchTVTvIdIndexRoute: typeof WatchTVTvIdIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SplatRoute: SplatRoute,
-  ExploreIndexRoute: ExploreIndexRoute,
-  SearchIndexRoute: SearchIndexRoute,
+  MoviesIndexRoute: MoviesIndexRoute,
+  TvIndexRoute: TvIndexRoute,
   MovieInfoMovieIdIndexRoute: MovieInfoMovieIdIndexRoute,
+  MoviesExploreIndexRoute: MoviesExploreIndexRoute,
+  MoviesSearchIndexRoute: MoviesSearchIndexRoute,
+  TvExploreIndexRoute: TvExploreIndexRoute,
+  TvSearchIndexRoute: TvSearchIndexRoute,
+  TvInfoTvIdIndexRoute: TvInfoTvIdIndexRoute,
   WatchMovieIdIndexRoute: WatchMovieIdIndexRoute,
+  WatchTVTvIdIndexRoute: WatchTVTvIdIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -193,10 +325,16 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/$",
-        "/explore/",
-        "/search/",
+        "/movies/",
+        "/tv/",
         "/movieInfo/$movieId/",
-        "/watch/$movieId/"
+        "/movies/explore/",
+        "/movies/search/",
+        "/tv/explore/",
+        "/tv/search/",
+        "/tvInfo/$tvId/",
+        "/watch/$movieId/",
+        "/watchTV/$tvId/"
       ]
     },
     "/": {
@@ -205,17 +343,35 @@ export const routeTree = rootRoute
     "/$": {
       "filePath": "$.tsx"
     },
-    "/explore/": {
-      "filePath": "explore/index.tsx"
+    "/movies/": {
+      "filePath": "movies/index.tsx"
     },
-    "/search/": {
-      "filePath": "search/index.tsx"
+    "/tv/": {
+      "filePath": "tv/index.tsx"
     },
     "/movieInfo/$movieId/": {
       "filePath": "movieInfo/$movieId/index.tsx"
     },
+    "/movies/explore/": {
+      "filePath": "movies/explore/index.tsx"
+    },
+    "/movies/search/": {
+      "filePath": "movies/search/index.tsx"
+    },
+    "/tv/explore/": {
+      "filePath": "tv/explore/index.tsx"
+    },
+    "/tv/search/": {
+      "filePath": "tv/search/index.tsx"
+    },
+    "/tvInfo/$tvId/": {
+      "filePath": "tvInfo/$tvId/index.tsx"
+    },
     "/watch/$movieId/": {
       "filePath": "watch/$movieId/index.tsx"
+    },
+    "/watchTV/$tvId/": {
+      "filePath": "watchTV/$tvId/index.tsx"
     }
   }
 }
