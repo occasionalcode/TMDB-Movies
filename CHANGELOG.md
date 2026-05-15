@@ -1,6 +1,10 @@
 # Changelog
 
+
 ## [1.0.0] - 2026-05-15
+
+### Chore
+- Updated CategoryCarousel to be more responsive 
 
 ### Added
 
