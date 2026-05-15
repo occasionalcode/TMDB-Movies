@@ -16,7 +16,7 @@ export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
   const navigate = useNavigate();
 
   return (
-    <div className="pb-10  mobileS:px-3 ">
+    <div className="pb-10 mobileS:px-3 max-w-[1440px] mx-auto">
       <div className="h-full w-full flex justify-between">
         <div className="flex  gap-2">
           <div className="bg-white rounded-full w-2 h-10"></div>

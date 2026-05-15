@@ -25,10 +25,8 @@ function RouteComponent() {
   }
   if (data) {
     return (
-      <div className="min-h-dvh">
-        <div className="pt-10">
-          <DiscoverMovies movies={data} />
-        </div>
+      <div className="min-h-dvh pt-24">
+        <DiscoverMovies movies={data} />
       </div>
     );
   }

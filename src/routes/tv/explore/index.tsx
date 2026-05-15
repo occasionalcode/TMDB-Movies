@@ -29,7 +29,7 @@ function RouteComponent() {
   }
   if (data) {
     return (
-      <div className="min-h-dvh pt-10">
+      <div className="min-h-dvh pt-24">
         <DiscoverTV shows={data} />
       </div>
     );

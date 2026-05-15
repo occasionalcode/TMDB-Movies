@@ -1,7 +1,7 @@
 import { useTVDetails, useTVSeason } from "@/api/tmdb-fetch";
 import MovieImage from "@/component/-MovieImage";
 import { Link } from "@tanstack/react-router";
-import { Calendar, ChevronDown, Clock, Play } from "lucide-react";
+import { ChevronDown, Play } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type TVInfoType = {
@@ -118,19 +118,17 @@ export function TVInfo({ id }: TVInfoType) {
               {/* Season dropdown */}
               <div className="relative">
                 <button
-                  onClick={() =>
-                    setIsSeasonDropdownOpen(!isSeasonDropdownOpen)
-                  }
-                  className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 border border-gray-600 px-4 py-2 rounded-lg transition-colors"
+                  onClick={() => setIsSeasonDropdownOpen(!isSeasonDropdownOpen)}
+                  className="flex items-center gap-2 text-sm text-white/80 hover:text-white bg-white/10 hover:bg-white/15 px-3 py-1.5 rounded-full transition-colors"
                 >
                   <span>{currentSeason?.name || `Season ${selectedSeason}`}</span>
                   <ChevronDown
-                    className={`size-4 transition-transform duration-200 ${isSeasonDropdownOpen ? "rotate-180" : ""}`}
+                    className={`size-3.5 transition-transform duration-200 ${isSeasonDropdownOpen ? "rotate-180" : ""}`}
                   />
                 </button>
 
                 {isSeasonDropdownOpen && (
-                  <div className="absolute top-full mt-1 left-0 bg-gray-800 border border-gray-600 rounded-lg overflow-hidden z-50 min-w-[220px] max-h-64 overflow-y-auto shadow-2xl">
+                  <div className="absolute top-full mt-2 left-0 bg-[#111827] border border-white/10 rounded-xl overflow-hidden z-50 min-w-[200px] max-h-64 overflow-y-auto shadow-2xl">
                     {displaySeasons.map((season) => (
                       <button
                         key={season.season_number}
@@ -138,16 +136,14 @@ export function TVInfo({ id }: TVInfoType) {
                           setSelectedSeason(season.season_number);
                           setIsSeasonDropdownOpen(false);
                         }}
-                        className={`w-full text-left px-4 py-3 hover:bg-gray-700 transition-colors flex justify-between items-center ${
+                        className={`w-full text-left px-4 py-2.5 text-sm hover:bg-white/5 transition-colors flex justify-between items-center ${
                           selectedSeason === season.season_number
-                            ? "bg-gray-700 text-red-400"
-                            : ""
+                            ? "text-white font-medium"
+                            : "text-gray-400"
                         }`}
                       >
                         <span>{season.name}</span>
-                        <span className="text-gray-400 text-sm ml-4">
-                          {season.episode_count} eps
-                        </span>
+                        <span className="text-gray-500 text-xs ml-4">{season.episode_count} eps</span>
                       </button>
                     ))}
                   </div>
@@ -155,31 +151,38 @@ export function TVInfo({ id }: TVInfoType) {
               </div>
             </div>
 
-            {/* Episodes grid */}
+            {/* Episodes list */}
             {seasonLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="flex flex-col gap-1">
                 {[...Array(6)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="bg-gray-800 rounded-lg h-48 animate-pulse"
-                  />
+                  <div key={i} className="flex gap-4 py-3 px-2">
+                    <div className="w-5 h-4 bg-white/10 rounded animate-pulse flex-shrink-0 mt-1" />
+                    <div className="w-36 aspect-video bg-white/10 rounded-md animate-pulse flex-shrink-0" />
+                    <div className="flex-1 flex flex-col gap-2 pt-1">
+                      <div className="h-3.5 bg-white/10 rounded animate-pulse w-2/3" />
+                      <div className="h-3 bg-white/10 rounded animate-pulse w-full" />
+                      <div className="h-3 bg-white/10 rounded animate-pulse w-4/5" />
+                    </div>
+                  </div>
                 ))}
               </div>
             ) : seasonData && seasonData.episodes.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="flex flex-col divide-y divide-white/5">
                 {seasonData.episodes.map((episode) => (
                   <Link
                     key={episode.id}
                     to="/watchTV/$tvId"
                     params={{ tvId: show.id.toString() }}
-                    search={{
-                      season: episode.season_number,
-                      episode: episode.episode_number,
-                    }}
-                    className="bg-gray-900 rounded-lg overflow-hidden hover:bg-gray-800 transition-colors group border border-gray-800 hover:border-gray-600"
+                    search={{ season: episode.season_number, episode: episode.episode_number }}
+                    className="group flex items-start gap-4 py-4 px-2 -mx-2 hover:bg-white/5 rounded-lg transition-colors"
                   >
+                    {/* Episode number */}
+                    <span className="text-gray-500 w-5 text-sm font-medium flex-shrink-0 pt-1 text-right">
+                      {episode.episode_number}
+                    </span>
+
                     {/* Thumbnail */}
-                    <div className="relative aspect-video">
+                    <div className="relative w-36 aspect-video flex-shrink-0 rounded-md overflow-hidden bg-white/5">
                       {episode.still_path ? (
                         <MovieImage
                           className="w-full h-full object-cover"
@@ -187,38 +190,23 @@ export function TVInfo({ id }: TVInfoType) {
                           alt={episode.name}
                         />
                       ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-700 flex items-center justify-center">
-                          <Play className="text-gray-500 size-10" />
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Play className="text-gray-600 size-7" />
                         </div>
                       )}
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <Play className="text-white size-12 drop-shadow-lg" />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <Play className="text-white size-8 drop-shadow-lg" fill="white" />
                       </div>
-                      <span className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-0.5 rounded font-medium">
-                        E{episode.episode_number}
-                      </span>
-                      {episode.vote_average > 0 && (
-                        <span className="absolute top-2 right-2 bg-black/70 text-yellow-400 text-xs px-2 py-0.5 rounded font-medium">
-                          ★ {episode.vote_average.toFixed(1)}
-                        </span>
-                      )}
                     </div>
 
-                    {/* Episode info */}
-                    <div className="p-3 flex flex-col gap-1.5">
-                      <h4 className="font-semibold text-white text-sm line-clamp-1">
-                        {episode.name}
-                      </h4>
-                      <div className="flex items-center gap-3 text-gray-400 text-xs">
-                        {episode.air_date && (
-                          <span className="flex items-center gap-1">
-                            <Calendar className="size-3" />
-                            {new Date(episode.air_date).toLocaleDateString()}
-                          </span>
-                        )}
+                    {/* Info */}
+                    <div className="flex-1 flex flex-col gap-1 min-w-0">
+                      <div className="flex items-start justify-between gap-3">
+                        <span className="text-white text-sm font-medium leading-snug line-clamp-1">
+                          {episode.name}
+                        </span>
                         {episode.runtime && (
-                          <span className="flex items-center gap-1">
-                            <Clock className="size-3" />
+                          <span className="text-gray-500 text-xs flex-shrink-0 pt-0.5">
                             {episode.runtime}m
                           </span>
                         )}
@@ -228,12 +216,17 @@ export function TVInfo({ id }: TVInfoType) {
                           {episode.overview}
                         </p>
                       )}
+                      {episode.air_date && (
+                        <span className="text-gray-600 text-xs">
+                          {new Date(episode.air_date).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" })}
+                        </span>
+                      )}
                     </div>
                   </Link>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-400">No episodes available for this season.</p>
+              <p className="text-gray-500 text-sm">No episodes available for this season.</p>
             )}
           </div>
         </div>

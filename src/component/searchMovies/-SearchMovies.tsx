@@ -42,7 +42,7 @@ export function SearchMovies() {
   }, [debouncedQuery]);
 
   return (
-    <div className="movie-search text-white">
+    <div className="movie-search text-white max-w-[1440px] mx-auto">
       <div className="w-full px-3">
         <input
           ref={inputRef} // Attach the ref to the input field

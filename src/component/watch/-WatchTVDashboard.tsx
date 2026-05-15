@@ -11,7 +11,7 @@ type WatchTVDashboardType = {
   episode: number;
 };
 
-const PROVIDERS = ["VidsrcCC", "VidsrcTO", "Embed (HD)", "VidsrcVIP", "Vidjoy"] as const;
+const PROVIDERS = ["VidsrcCC", "VidsrcTO", "Embed (HD)", "VidsrcVIP", "Vidjoy", "Videasy"] as const;
 type ProviderName = (typeof PROVIDERS)[number];
 
 function getSource(name: ProviderName, tvId: string, season: number, episode: number): string {
@@ -21,6 +21,7 @@ function getSource(name: ProviderName, tvId: string, season: number, episode: nu
     "Embed (HD)": `https://embed.su/embed/tv/${tvId}/${season}/${episode}`,
     VidsrcVIP: `https://vidsrc.vip/embed/tv/${tvId}/${season}/${episode}`,
     Vidjoy: `https://vidjoy.pro/embed/tv/${tvId}/${season}/${episode}`,
+    Videasy: `https://player.videasy.net/tv/${tvId}/${season}/${episode}?color=c026d3`,
   };
   return map[name];
 }
@@ -58,7 +59,7 @@ export default function WatchTVDashboard({ tvId, season, episode }: WatchTVDashb
   const iframeSrc = getSource(providerName, tvId, season, episode);
 
   return (
-    <div className="flex pt-10 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10 lg:gap-0">
+    <div className="flex pt-20 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10 lg:gap-0">
       {/* Main player column */}
       <div className="w-full flex gap-10 justify-center items-start lg:pr-10">
         <div className="w-full">

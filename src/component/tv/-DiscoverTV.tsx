@@ -13,7 +13,7 @@ export function DiscoverTV({ shows }: DiscoverTVTypes) {
   const navigate = useNavigate();
 
   return (
-    <div className="pb-10 mobileS:px-3 px-5">
+    <div className="pb-10 mobileS:px-3 px-5 max-w-[1440px] mx-auto">
       <div className="h-full w-full flex justify-between pb-5">
         <div className="flex gap-2 items-center">
           <div className="bg-white rounded-full w-2 h-10" />

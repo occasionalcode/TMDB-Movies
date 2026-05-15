@@ -31,7 +31,7 @@ export function TVDashboard() {
   return (
     <div className="w-full">
       {banner && <TVBanner shows={banner} />}
-      <div>
+      <div className="px-6 lg:px-16 pt-4 max-w-[1440px] mx-auto">
         {categories.map(({ category }, index) => {
           const { data } = categoryData[index];
           return data ? (

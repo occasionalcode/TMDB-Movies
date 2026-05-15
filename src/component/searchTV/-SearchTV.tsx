@@ -34,7 +34,7 @@ export function SearchTV() {
   }, [debouncedQuery]);
 
   return (
-    <div className="text-white">
+    <div className="text-white max-w-[1440px] mx-auto">
       <div className="w-full px-3">
         <input
           ref={inputRef}

@@ -15,7 +15,7 @@ export interface Result {
   overview: string;
   popularity: number;
   poster_path: null | string;
-  release_date: Date;
+  release_date: string;
   title: string;
   video: boolean;
   vote_average: number;
@@ -41,7 +41,7 @@ export interface MovieDetails {
   poster_path: string;
   production_companies: ProductionCompany[];
   production_countries: ProductionCountry[];
-  release_date: Date;
+  release_date: string;
   revenue: number;
   runtime: number;
   spoken_languages: SpokenLanguage[];
@@ -160,6 +160,63 @@ export interface TVEpisode {
   still_path: string | null;
   vote_average: number;
   vote_count: number;
+}
+
+// Multi-search
+export interface MultiSearchMovie {
+  media_type: "movie";
+  id: number;
+  title: string;
+  original_title: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  release_date: string;
+  genre_ids: number[];
+  popularity: number;
+  vote_average: number;
+  vote_count: number;
+  original_language: string;
+  adult: boolean;
+  video: boolean;
+}
+
+export interface MultiSearchTV {
+  media_type: "tv";
+  id: number;
+  name: string;
+  original_name: string;
+  overview: string;
+  poster_path: string | null;
+  backdrop_path: string | null;
+  first_air_date: string;
+  genre_ids: number[];
+  popularity: number;
+  vote_average: number;
+  vote_count: number;
+  original_language: string;
+  origin_country: string[];
+  adult: boolean;
+}
+
+export interface MultiSearchPerson {
+  media_type: "person";
+  id: number;
+  name: string;
+  popularity: number;
+  profile_path: string | null;
+  known_for_department: string;
+  adult: boolean;
+  gender: number;
+}
+
+export type MultiSearchResult = MultiSearchMovie | MultiSearchTV | MultiSearchPerson;
+
+export interface MultiSearchResponse {
+  page: number;
+  results: MultiSearchResult[];
+  total_pages: number;
+  total_results: number;
 }
 
 // Season with episodes

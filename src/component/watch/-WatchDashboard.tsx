@@ -64,12 +64,16 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
       name: "Vidjoy",
       source: `https://vidjoy.pro/embed/movie/${movieId}`,
     },
+    {
+      name: "Videasy",
+      source: `https://player.videasy.net/movie/${movieId}?color=c026d3`,
+    },
   ];
 
   const [media, setMedia] = useState<Provider>(streams[0]);
 
   return (
-    <div className="flex pt-10 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10 lg:gap-0 ">
+    <div className="flex pt-20 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10 lg:gap-0 ">
       <div className="w-full flex gap-10 justify-center items-start lg:pr-10">
         <div className="w-full flex justify-start items-center">
           <div className="w-full">

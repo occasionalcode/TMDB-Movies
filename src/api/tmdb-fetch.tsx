@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { MovieDetails, MovieGenres, TMDBMovies, TMDBTVShows, TVDetails, TVSeasonDetails } from "../types/tmdb-types";
+import { MovieDetails, MovieGenres, MultiSearchResponse, TMDBMovies, TMDBTVShows, TVDetails, TVSeasonDetails } from "../types/tmdb-types";
 import axios from "axios";
 import { HLSResponse } from "@/types/m3u8-types";
 
@@ -202,13 +202,35 @@ export function useSearchTV(query: string | null, page?: number) {
   });
 }
 
+export function useSearchMulti(query: string | null, page?: number) {
+  return useQuery<MultiSearchResponse>({
+    queryKey: ["searchMulti", query, page],
+    queryFn: async () => {
+      const { data } = await axios.get(`https://api.themoviedb.org/3/search/multi`, {
+        params: {
+          query,
+          api_key: import.meta.env.VITE_TMDB_API_KEY,
+          page,
+        },
+      });
+      return data as MultiSearchResponse;
+    },
+    gcTime: Infinity,
+    staleTime: Infinity,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    retry: false,
+    enabled: !!query,
+  });
+}
+
 export function useMovieHLS(id: number) {
   return useQuery<HLSResponse>({
     queryKey: ["hlsResponse", id],
     queryFn: async () => {
       console.log("fetching genres");
       const { data: hlsResponse } = await axios.get(
-        `https://api.themoviedb.org/3/search/movie`,
+        `https://hono-rabbit-scraper.occasionalprogrammer.workers.dev/api/rabbit/fetch`,
         { params: { mediaId: id } }
       );
       return hlsResponse as HLSResponse;

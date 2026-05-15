@@ -7,6 +7,7 @@ export * from "./dashboard";
 export * from "./explore";
 export * from "./movieInfo";
 export * from "./searchMovies";
+export * from "./searchMulti";
 export * from "./searchTV";
 export * from "./tv";
 export * from "./tvInfo";

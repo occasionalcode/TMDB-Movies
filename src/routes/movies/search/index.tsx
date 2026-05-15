@@ -14,7 +14,7 @@ export const Route = createFileRoute("/movies/search/")({
 
 function RouteComponent() {
   return (
-    <div className="min-h-dvh">
+    <div className="min-h-dvh pt-24">
       <SearchMovies />
     </div>
   );
