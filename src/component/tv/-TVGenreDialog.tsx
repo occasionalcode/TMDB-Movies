@@ -8,36 +8,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/Customdialog";
-import { useMovieGenres } from "@/api/tmdb-fetch";
-
+import { useTVGenres } from "@/api/tmdb-fetch";
 import { Link, useSearch } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
-export function GenreDialog() {
-  const { genres: filter } = useSearch({ from: "/movies/explore/" });
-  const { data: genres, isLoading, error } = useMovieGenres();
+export function TVGenreDialog() {
+  const { genres: filter } = useSearch({ from: "/tv/explore/" });
+  const { data: genres, isLoading, error } = useTVGenres();
   const [selectedGenres, setSelectedGenres] = useState<number[]>([]);
 
   useEffect(() => {
-    if (filter) {
-      setSelectedGenres(filter);
-    }
+    if (filter) setSelectedGenres(filter);
   }, []);
 
-  console.log(selectedGenres, "console  ");
-
-  if (isLoading) {
-    return <div>loading</div>;
-  }
-  if (error) {
-    return (
-      <div>
-        <p>{`${error.message}`}</p>
-      </div>
-    );
-  }
-
-  // setSelectedGenres((prev) => [...prev, genre.id])
+  if (isLoading) return <div>loading</div>;
+  if (error) return <div><p>{error.message}</p></div>;
 
   if (genres)
     return (
@@ -46,13 +31,15 @@ export function GenreDialog() {
           <div className="relative">
             <p
               className={`text-white absolute -right-5 -top-4 bg-blue-500 text-sm px-3 py-1 rounded-full w-fit h-fit ${selectedGenres.length === 0 && "hidden"}`}
-            >{`${selectedGenres.length}`}</p>
-            <button className="bg-transparent text-white text-base lg:text-lg outline-2 lg:outline-[3px] px-4  lg:px-8 py-1 h-fit rounded-lg  outline-white hover:bg-[#1c1d20]">
+            >
+              {selectedGenres.length}
+            </p>
+            <button className="bg-transparent text-white text-base lg:text-lg outline-2 lg:outline-[3px] px-4 lg:px-8 py-1 h-fit rounded-lg outline-white hover:bg-[#1c1d20]">
               Filter
             </button>
           </div>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-md bg-[#030712]/70 text-white backdrop-blur-lg border-none ">
+        <DialogContent className="sm:max-w-md bg-[#030712]/70 text-white backdrop-blur-lg border-none">
           <DialogHeader>
             <DialogTitle className="text-2xl">Filter</DialogTitle>
             <DialogDescription className="text-lg">
@@ -63,29 +50,23 @@ export function GenreDialog() {
                 <button
                   onClick={() => {
                     if (selectedGenres.includes(genre.id)) {
-                      const newArray = selectedGenres.filter(
-                        (item) => item !== genre.id
-                      );
-                      setSelectedGenres(newArray);
+                      setSelectedGenres(selectedGenres.filter((item) => item !== genre.id));
                     } else {
                       setSelectedGenres((prev) => [...prev, genre.id]);
                     }
                   }}
-                  className={`outline-1 rounded-2xl py-1 px-4   ${selectedGenres.includes(genre.id) ? `bg-red-800 hover:bg-red-900` : `bg-transparent hover:bg-[#222327]`}`}
+                  className={`outline-1 rounded-2xl py-1 px-4 ${selectedGenres.includes(genre.id) ? "bg-red-800 hover:bg-red-900" : "bg-transparent hover:bg-[#222327]"}`}
                   key={genre.id}
                 >
-                  <p className={`text-center`}>{`${genre.name}`}</p>
+                  <p className="text-center">{genre.name}</p>
                 </button>
               ))}
             </div>
           </DialogHeader>
           <DialogFooter className="sm:justify-end gap-5">
             <DialogClose asChild>
-              {/* <Button type="button" variant="secondary">
-                Close
-              </Button> */}
               <Link
-                to="/movies/explore"
+                to="/tv/explore"
                 search={{ page: 1 }}
                 onClick={() => setSelectedGenres([])}
                 className="outline-1 outline-white px-4 py-1 rounded-sm hover:bg-white hover:text-black"
@@ -95,7 +76,7 @@ export function GenreDialog() {
             </DialogClose>
             <DialogClose asChild>
               <Link
-                to="/movies/explore"
+                to="/tv/explore"
                 search={{ page: 1, genres: selectedGenres }}
                 className="text-center px-4 py-1 rounded-sm bg-red-800 hover:bg-red-900"
               >

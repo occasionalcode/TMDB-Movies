@@ -12,11 +12,11 @@ type DiscoverMovieTypes = {
 export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
   //   console.log(movies.movies.results[0].title);
 
-  const { page, genres } = useSearch({ from: "/explore/" });
+  const { page, genres } = useSearch({ from: "/movies/explore/" });
   const navigate = useNavigate();
 
   return (
-    <div className="pb-10  mobileS:px-3 ">
+    <div className="pb-10 mobileS:px-3 max-w-[1440px] mx-auto">
       <div className="h-full w-full flex justify-between">
         <div className="flex  gap-2">
           <div className="bg-white rounded-full w-2 h-10"></div>
@@ -34,7 +34,7 @@ export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
       <Pagination
         handlePageChange={(_, page) => {
           navigate({
-            to: "/explore",
+            to: "/movies/explore",
             search: { page: page, genres: genres },
           });
         }}

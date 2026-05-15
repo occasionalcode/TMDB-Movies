@@ -1,56 +1,48 @@
-import { useSearchMovies } from "@/api/tmdb-fetch";
+import { useSearchTV } from "@/api/tmdb-fetch";
 import { useEffect, useRef, useState } from "react";
-
 import { Skeleton } from "@/components/ui/skeleton";
-import { MovieCards } from "../-MovieCards";
+import { TVCards } from "../-TVCards";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import Pagination from "../-Pagination";
 
-export function SearchMovies() {
+export function SearchTV() {
   const [query, setQuery] = useState<string>("");
   const [debouncedQuery, setDebouncedQuery] = useState<string>("");
-  const { page } = useSearch({ from: "/movies/search/" });
-  const { data, isLoading, isError } = useSearchMovies(debouncedQuery, page);
+  const { page } = useSearch({ from: "/tv/search/" });
+  const { data, isLoading, isError } = useSearchTV(debouncedQuery, page);
   const navigate = useNavigate();
 
   const skeletonArray = new Array(10).fill(null);
-
-  // Ref for the input field
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Automatically focus the input field when the component mounts
   useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus();
-    }
+    inputRef.current?.focus();
   }, []);
 
-  // Debouncing the search input
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedQuery(query);
     }, 1000);
-
     return () => clearTimeout(handler);
   }, [query]);
 
   useEffect(() => {
     navigate({
-      to: "/movies/search",
+      to: "/tv/search",
       search: { titleQuery: debouncedQuery, page: 1 },
     });
   }, [debouncedQuery]);
 
   return (
-    <div className="movie-search text-white max-w-[1440px] mx-auto">
+    <div className="text-white max-w-[1440px] mx-auto">
       <div className="w-full px-3">
         <input
-          ref={inputRef} // Attach the ref to the input field
+          ref={inputRef}
           type="text"
-          placeholder="Search for movies..."
+          placeholder="Search for TV shows..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full px-4  bg-white h-10 rounded-lg py-2 my-10 text-black"
+          className="w-full px-4 bg-white h-10 rounded-lg py-2 my-10 text-black"
         />
       </div>
 
@@ -65,27 +57,27 @@ export function SearchMovies() {
         </div>
       )}
 
-      {isError && <div className="">Error fetching movies!</div>}
+      {isError && <div>Error fetching TV shows!</div>}
 
       {data && data.results.length > 0 ? (
         <div className="px-10 mobileS:px-3">
           <div className="flex gap-2">
-            <div className="bg-white rounded-full w-2 h-10"></div>
+            <div className="bg-white rounded-full w-2 h-10" />
             <h2 className="text-white font-bold text-2xl lg:text-3xl pb-5">
-              <span>{`${data.total_results}`}</span> Search Results
+              <span>{data.total_results}</span> Search Results
             </h2>
           </div>
           <div className="grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
-            {data.results.map((movie) => (
-              <MovieCards key={movie.id} movie={movie} />
+            {data.results.map((show) => (
+              <TVCards key={show.id} show={show} />
             ))}
           </div>
           <Pagination
             totalPages={data.total_pages}
             handlePageChange={(_, page) => {
               navigate({
-                to: "/movies/search",
-                search: { page: page, titleQuery: debouncedQuery },
+                to: "/tv/search",
+                search: { page, titleQuery: debouncedQuery },
               });
             }}
             currentPage={page || 1}
@@ -97,10 +89,10 @@ export function SearchMovies() {
             What do you wanna watch?
           </p>
           <Link
-            to="/movies/explore"
+            to="/tv/explore"
             className="bg-red-800 font-semibold px-3 py-1 rounded-sm"
           >
-            Explore movies
+            Explore TV Shows
           </Link>
         </div>
       )}

@@ -1,44 +1,43 @@
 import MovieImage from "@/component/-MovieImage";
-import { TMDBMovies } from "@/types/tmdb-types";
+import { TMDBTVShows } from "@/types/tmdb-types";
 import { Link } from "@tanstack/react-router";
 import { Info, Play } from "lucide-react";
 
-const GENRE_MAP: Record<number, string> = {
-  28: "Action",
-  12: "Adventure",
+const TV_GENRE_MAP: Record<number, string> = {
+  10759: "Action & Adventure",
   16: "Animation",
   35: "Comedy",
   80: "Crime",
   99: "Documentary",
   18: "Drama",
   10751: "Family",
-  14: "Fantasy",
-  36: "History",
-  27: "Horror",
+  10762: "Kids",
   9648: "Mystery",
-  10749: "Romance",
-  878: "Sci-Fi",
-  53: "Thriller",
-  10752: "War",
+  10763: "News",
+  10764: "Reality",
+  10765: "Sci-Fi & Fantasy",
+  10766: "Soap",
+  10767: "Talk",
+  10768: "War & Politics",
   37: "Western",
 };
 
-type BannerTypes = { movies: TMDBMovies };
+type TVBannerTypes = { shows: TMDBTVShows };
 
-export function Banner({ movies }: BannerTypes) {
-  const movie = movies.results[0];
-  const year = movie.release_date?.slice(0, 4);
-  const rating = movie.vote_average?.toFixed(1);
-  const genres = movie.genre_ids
+export function TVBanner({ shows }: TVBannerTypes) {
+  const show = shows.results[0];
+  const year = show.first_air_date?.slice(0, 4);
+  const rating = show.vote_average?.toFixed(1);
+  const genres = show.genre_ids
     ?.slice(0, 2)
-    .map((id) => GENRE_MAP[id])
+    .map((id) => TV_GENRE_MAP[id])
     .filter(Boolean);
 
   return (
     <div className="relative w-full h-dvh min-h-[600px] overflow-hidden">
       <MovieImage
         className="w-full h-full min-h-screen min-w-full object-cover object-center"
-        imgLink={`${movie.backdrop_path}`}
+        imgLink={`${show.backdrop_path}`}
         alt="banner"
       />
       {/* Bottom gradient */}
@@ -50,7 +49,7 @@ export function Banner({ movies }: BannerTypes) {
       <div className="absolute inset-x-0 bottom-28">
         <div className="max-w-[1440px] mx-auto px-6 lg:px-16 text-white">
           <h1 className="text-5xl lg:text-7xl font-black mb-3 leading-tight drop-shadow-lg">
-            {movie.title}
+            {show.name}
           </h1>
 
           <div className="flex items-center gap-2 text-sm mb-3 flex-wrap">
@@ -67,20 +66,21 @@ export function Banner({ movies }: BannerTypes) {
           </div>
 
           <p className="text-sm text-white/70 line-clamp-2 mb-6 max-w-md leading-relaxed">
-            {movie.overview}
+            {show.overview}
           </p>
 
           <div className="flex gap-3">
             <Link
-              to="/watch/$movieId"
-              params={{ movieId: movie.id.toString() }}
+              to="/watchTV/$tvId"
+              params={{ tvId: show.id.toString() }}
+              search={{ season: 1, episode: 1 }}
               className="flex items-center gap-2 bg-white text-black font-bold px-6 py-2.5 rounded-md hover:bg-white/90 transition-colors"
             >
               <Play className="size-4 fill-black" /> Watch Now
             </Link>
             <Link
-              to="/movieInfo/$movieId"
-              params={{ movieId: movie.id.toString() }}
+              to="/tvInfo/$tvId"
+              params={{ tvId: show.id.toString() }}
               className="flex items-center gap-2 bg-white/20 text-white font-semibold px-6 py-2.5 rounded-md hover:bg-white/30 transition-colors backdrop-blur-sm"
             >
               <Info className="size-4" /> More Info
