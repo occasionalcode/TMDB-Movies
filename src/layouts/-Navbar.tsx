@@ -25,9 +25,10 @@ export default function NavBar() {
     search: "/search",
   };
 
-  const navBg = !isHome || scrolled
-    ? "bg-[#020713]/60 backdrop-blur-md border-b border-white/5"
-    : "bg-gradient-to-b from-black/80 via-black/20 to-transparent";
+  const navBg =
+    !isHome || scrolled
+      ? "bg-[#020713]/60 backdrop-blur-md border-b border-white/5"
+      : "bg-gradient-to-b from-black/80 via-black/20 to-transparent";
 
   const pill = (active: boolean) =>
     `px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
@@ -58,7 +59,7 @@ export default function NavBar() {
             onClick={() => setIsOpen(false)}
             className="font-black text-white text-3xl"
           >
-            <span className="text-red-500">N</span>EFILIX
+            <span className="text-red-500">N</span>EFELIX
           </Link>
           <button
             onClick={() => setIsOpen(false)}
@@ -141,7 +142,7 @@ export default function NavBar() {
             to="/movies"
             className="font-black text-white text-4xl flex-shrink-0"
           >
-            <span className="text-red-500">N</span>EFILIX
+            <span className="text-red-500">N</span>EFELIX
           </Link>
 
           <div className="flex items-center gap-1">
