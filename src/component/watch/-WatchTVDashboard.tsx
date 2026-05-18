@@ -59,9 +59,9 @@ export default function WatchTVDashboard({ tvId, season, episode }: WatchTVDashb
   const iframeSrc = getSource(providerName, tvId, season, episode);
 
   return (
-    <div className="flex pt-20 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10 lg:gap-0">
+    <div className="flex pt-20 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10">
       {/* Main player column */}
-      <div className="w-full flex gap-10 justify-center items-start lg:pr-10">
+      <div className="flex-1 min-w-0 flex flex-col gap-10 justify-center items-start lg:pr-8">
         <div className="w-full">
           {/* Video player */}
           <div>
@@ -197,7 +197,7 @@ export default function WatchTVDashboard({ tvId, season, episode }: WatchTVDashb
       </div>
 
       {/* Sidebar recommendations */}
-      <div>
+      <div className="w-full lg:w-80 lg:shrink-0">
         {suggestedShows && (
           <div className="flex flex-col gap-2">
             <h3 className="text-2xl font-bold text-white">Recommendations</h3>

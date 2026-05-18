@@ -42,6 +42,7 @@ export function useMovieDetails(id: number) {
         {
           params: {
             api_key: import.meta.env.VITE_TMDB_API_KEY,
+            append_to_response: "credits,release_dates",
           },
         }
       );
@@ -133,7 +134,10 @@ export function useTVDetails(id: number) {
     queryKey: ["tvDetails", id],
     queryFn: async () => {
       const { data } = await axios.get(`https://api.themoviedb.org/3/tv/${id}`, {
-        params: { api_key: import.meta.env.VITE_TMDB_API_KEY },
+        params: { 
+          api_key: import.meta.env.VITE_TMDB_API_KEY,
+          append_to_response: "credits,content_ratings"
+        },
       });
       return data as TVDetails;
     },

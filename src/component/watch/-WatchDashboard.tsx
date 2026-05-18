@@ -74,7 +74,7 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
 
   return (
     <div className="flex pt-20 pb-20 flex-col lg:flex-row px-5 lg:px-10 gap-10 lg:gap-0 ">
-      <div className="w-full flex gap-10 justify-center items-start lg:pr-10">
+    <div className="flex-1 min-w-0 flex flex-col gap-10 justify-center items-start lg:pr-8">
         <div className="w-full flex justify-start items-center">
           <div className="w-full">
             <div>
@@ -169,7 +169,8 @@ export default function WatchDashboard({ movieId }: WatchDashboardType) {
           </div>
         </div>
       </div>
-      <div>
+      {/* Sidebar recommendations */}
+      <div className="w-full lg:w-80 lg:shrink-0">
         {suggestedLoading && <p>loading</p>}
         {suggestedError && <p>error</p>}
         {suggestedMovies && (
