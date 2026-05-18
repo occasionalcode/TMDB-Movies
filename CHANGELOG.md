@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.0] - 2026-05-18
+
+### Added
+- Sleek, "Coming Soon" temporary popover tooltips on "Add to List", "Like", and "Dislike" action buttons in `MovieInfo` and `TVInfo` that auto-dismiss after 2 seconds.
+- Interactive "Watch" preview section below the main hero in `MovieInfo` with a clickable backdrop thumbnail.
+- TV show Play button now explicitly reads "Play S1:E1" to show where the streaming starts.
+
+### Changed
+- Complete overhaul of the `MovieInfo` and `TVInfo` detail pages into a premium Netflix-style layout with large immersive backdrops, overlaid gradients, and re-integrated vertical portrait posters.
+- Fully responsive layout centering for info pages: centered column on mobile (`< md`), left-aligned side-by-side on tablet (`md+`), and right-aligned supplementary metadata sidebars on desktop.
+- Constrained the video player size on laptop devices in both Movie and TV watch dashboards by allocating a fixed sidebar width (`lg:w-80 lg:shrink-0`) and utilizing flexible width for the player column.
+- Removed floating close button (`X`) and backdrop volume overlay (`Volume`) from the info headers for a cleaner, unified presentation.
 
 ## [1.0.0] - 2026-05-15
 

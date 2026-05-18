@@ -55,7 +55,7 @@ export default function NavBar() {
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-white/10">
           <Link
-            to="/movies"
+            to={links.home}
             onClick={() => setIsOpen(false)}
             className="font-black text-white text-3xl"
           >
@@ -76,14 +76,14 @@ export default function NavBar() {
             to={links.home}
             className={`flex items-center gap-4 px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 delay-75 ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3"} ${isHome ? "bg-white/10 text-white" : "text-white/60 hover:text-white hover:bg-white/5"}`}
           >
-            <Home className="size-5" /> Home
+            <Home className="size-5" /> {isTV ? "TV Shows Home" : "Movies Home"}
           </Link>
           <Link
             onClick={() => setIsOpen(false)}
             to={links.explore}
             className={`flex items-center gap-4 px-4 py-4 rounded-xl text-lg font-medium transition-all duration-300 delay-100 ${isOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-3"} ${isExplore ? "bg-white/10 text-white" : "text-white/60 hover:text-white hover:bg-white/5"}`}
           >
-            <Compass className="size-5" /> Explore
+            <Compass className="size-5" /> {isTV ? "Explore TV Shows" : "Explore Movies"}
           </Link>
           <Link
             onClick={() => setIsOpen(false)}
@@ -95,31 +95,29 @@ export default function NavBar() {
         </nav>
 
         {/* Section switcher — slides up */}
-        {!isSearch && (
-          <div
-            className={`px-6 pb-10 transition-all duration-300 delay-200 ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
-          >
-            <p className="text-white/30 text-xs font-medium tracking-widest uppercase mb-3 px-1">
-              Browse
-            </p>
-            <div className="flex gap-2 p-1 bg-white/10 rounded-full">
-              <Link
-                to="/movies"
-                onClick={() => setIsOpen(false)}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-sm font-semibold transition-colors ${!isTV ? "bg-red-600 text-white" : "text-white/50 hover:text-white"}`}
-              >
-                <Film className="size-4" /> Movies
-              </Link>
-              <Link
-                to="/tv"
-                onClick={() => setIsOpen(false)}
-                className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-sm font-semibold transition-colors ${isTV ? "bg-red-600 text-white" : "text-white/50 hover:text-white"}`}
-              >
-                <Tv className="size-4" /> TV Shows
-              </Link>
-            </div>
+        <div
+          className={`px-6 pb-10 transition-all duration-300 delay-200 ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}
+        >
+          <p className="text-white/30 text-xs font-medium tracking-widest uppercase mb-3 px-1">
+            Browse
+          </p>
+          <div className="flex gap-2 p-1 bg-white/10 rounded-full">
+            <Link
+              to="/movies"
+              onClick={() => setIsOpen(false)}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-sm font-semibold transition-colors ${!isTV ? "bg-red-600 text-white" : "text-white/50 hover:text-white"}`}
+            >
+              <Film className="size-4" /> Movies
+            </Link>
+            <Link
+              to="/tv"
+              onClick={() => setIsOpen(false)}
+              className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-full text-sm font-semibold transition-colors ${isTV ? "bg-red-600 text-white" : "text-white/50 hover:text-white"}`}
+            >
+              <Tv className="size-4" /> TV Shows
+            </Link>
           </div>
-        )}
+        </div>
       </div>
 
       {/* Fixed navbar */}
@@ -131,7 +129,7 @@ export default function NavBar() {
           <button onClick={() => setIsOpen(true)}>
             <Menu className="text-white size-8" />
           </button>
-          <Link to="/movies" className="font-black text-red-500 text-4xl">
+          <Link to={links.home} className="font-black text-red-500 text-4xl">
             N
           </Link>
         </div>
@@ -139,7 +137,7 @@ export default function NavBar() {
         {/* Desktop nav */}
         <div className="hidden lg:flex px-10 py-4 items-center gap-8 max-w-[1440px] mx-auto">
           <Link
-            to="/movies"
+            to={links.home}
             className="font-black text-white text-4xl flex-shrink-0"
           >
             <span className="text-red-500">N</span>EFELIX
@@ -147,26 +145,24 @@ export default function NavBar() {
 
           <div className="flex items-center gap-1">
             <Link to={links.home} className={pill(isHome)}>
-              Home
+              {isTV ? "TV Shows Home" : "Movies Home"}
             </Link>
             <Link to={links.explore} className={pill(isExplore)}>
-              Explore
+              {isTV ? "Explore TV Shows" : "Explore Movies"}
             </Link>
             <Link to={links.search} className={pill(isSearch)}>
               Search
             </Link>
           </div>
 
-          {!isSearch && (
-            <div className="ml-auto flex gap-1 bg-white/10 rounded-full p-1">
-              <Link to="/movies" className={sectionPill(!isTV)}>
-                <Film className="size-3.5" /> Movies
-              </Link>
-              <Link to="/tv" className={sectionPill(isTV)}>
-                <Tv className="size-3.5" /> TV Shows
-              </Link>
-            </div>
-          )}
+          <div className="ml-auto flex gap-1 bg-white/10 rounded-full p-1">
+            <Link to="/movies" className={sectionPill(!isTV)}>
+              <Film className="size-3.5" /> Movies
+            </Link>
+            <Link to="/tv" className={sectionPill(isTV)}>
+              <Tv className="size-3.5" /> TV Shows
+            </Link>
+          </div>
         </div>
       </div>
     </>
