@@ -22,6 +22,39 @@ export interface Result {
   vote_count: number;
 }
 
+// Credits
+export interface CastMember {
+  id: number;
+  name: string;
+  character: string;
+  profile_path: string | null;
+}
+export interface Credits {
+  cast: CastMember[];
+}
+
+// Release Dates (for Movie Certifications)
+export interface ReleaseDateInfo {
+  certification: string;
+  type: number;
+}
+export interface ReleaseDatesResult {
+  iso_3166_1: string;
+  release_dates: ReleaseDateInfo[];
+}
+export interface ReleaseDates {
+  results: ReleaseDatesResult[];
+}
+
+// Content Ratings (for TV Certifications)
+export interface ContentRatingResult {
+  iso_3166_1: string;
+  rating: string;
+}
+export interface ContentRatings {
+  results: ContentRatingResult[];
+}
+
 // Movie details
 
 export interface MovieDetails {
@@ -51,6 +84,8 @@ export interface MovieDetails {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  credits?: Credits;
+  release_dates?: ReleaseDates;
 }
 
 export interface Genre {
@@ -145,6 +180,8 @@ export interface TVDetails {
   tagline: string;
   vote_average: number;
   vote_count: number;
+  credits?: Credits;
+  content_ratings?: ContentRatings;
 }
 
 // TV Episode

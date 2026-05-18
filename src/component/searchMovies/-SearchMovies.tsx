@@ -85,7 +85,7 @@ export function SearchMovies() {
             handlePageChange={(_, page) => {
               navigate({
                 to: "/movies/search",
-                search: { page: page, titleQuery: debouncedQuery },
+                search: (prev) => ({ ...prev, page }),
               });
             }}
             currentPage={page || 1}
