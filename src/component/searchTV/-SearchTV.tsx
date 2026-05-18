@@ -77,7 +77,7 @@ export function SearchTV() {
             handlePageChange={(_, page) => {
               navigate({
                 to: "/tv/search",
-                search: { page, titleQuery: debouncedQuery },
+                search: (prev) => ({ ...prev, page }),
               });
             }}
             currentPage={page || 1}

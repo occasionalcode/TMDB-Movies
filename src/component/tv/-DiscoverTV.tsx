@@ -30,7 +30,7 @@ export function DiscoverTV({ shows }: DiscoverTVTypes) {
       </div>
       <Pagination
         handlePageChange={(_, p) =>
-          navigate({ to: "/tv/explore", search: { page: p } })
+          navigate({ to: "/tv/explore", search: (prev) => ({ ...prev, page: p }) })
         }
         currentPage={page || 1}
         totalPages={shows.total_pages}

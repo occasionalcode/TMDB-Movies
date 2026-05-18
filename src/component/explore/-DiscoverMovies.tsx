@@ -35,7 +35,7 @@ export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
         handlePageChange={(_, page) => {
           navigate({
             to: "/movies/explore",
-            search: { page: page, genres: genres },
+            search: (prev) => ({ ...prev, page }),
           });
         }}
         currentPage={page || 1}
