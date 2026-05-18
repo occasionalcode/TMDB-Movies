@@ -12,7 +12,7 @@ type DiscoverMovieTypes = {
 export function DiscoverMovies({ movies }: DiscoverMovieTypes) {
   //   console.log(movies.movies.results[0].title);
 
-  const { page, genres } = useSearch({ from: "/movies/explore/" });
+  const { page } = useSearch({ from: "/movies/explore/" });
   const navigate = useNavigate();
 
   return (
